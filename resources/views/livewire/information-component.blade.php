@@ -1,0 +1,3 @@
+<div>
+    @dd($information);
+</div>
