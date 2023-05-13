@@ -1,6 +1,4 @@
 @extends('home')
-
 @section('main')
-Responsable page
-
+    this is create form view
 @endsection

@@ -18,7 +18,7 @@ class PublicationsTableSeeder extends Seeder
     {
         $faker = Faker::create();
 
-        $users = User::all();
+        $users = User::where('authorized', true)->get();
 
         foreach ($users as $user) {
             for ($i = 0; $i < 3; $i++) {

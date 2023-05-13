@@ -16,6 +16,6 @@ class Information extends Model
 
 
     public function publication(){
-        return $this->belongsTo(Publication::class,'pub_id', 'id');
+        return $this->belongsTo(Publication::class,'pub_id');
     }
 }

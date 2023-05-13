@@ -1,41 +1,90 @@
 @extends('layouts.app')
 
 @section('content')
-<!-- component -->
-<div class="flex items-center mt-6  w-full justify-center">
+@livewireStyles
 
-    <div class="w-1/3">
-        <div class="bg-white shadow-xl rounded-lg py-3">
-            <div class="photo-wrapper p-2">
-                <img class="w-32 h-32 rounded-full mx-auto" src="https://www.gravatar.com/avatar/2acfb745ecf9d4dccb3364752d17f65f?s=260&d=mp" alt="John Doe">
-            </div>
-            <div class="p-2">
-                <h3 class="text-center text-xl text-gray-900 font-medium leading-8">{{ $user->name}} </h3>
-                <div class="text-center text-gray-400 text-xs font-semibold">
-                    <p>{{ $user->role }}</p>
-                </div>
-                <table class="text-xs my-3">
-                    <tbody><tr>
-                        <td class="px-2 py-2 text-gray-500 font-semibold">Address</td>
-                        <td class="px-2 py-2">FSM-UMI, Meknes</td>
-                    </tr>
-                    <tr>
-                        <td class="px-2 py-2 text-gray-500 font-semibold">Phone</td>
-                        <td class="px-2 py-2">+977 9955221114</td>
-                    </tr>
-                    <tr>
-                        <td class="px-2 py-2 text-gray-500 font-semibold">Email</td>
-                        <td class="px-2 py-2">{{$user->email}}</td>
-                    </tr>
-                </tbody></table>
-    
-                <div class="text-center my-3">
-                    <a class="text-xs text-indigo-500 italic hover:underline hover:text-indigo-600 font-medium" href="#">View Profile</a>
-                </div>
-    
-            </div>
+@php
+    $role = Auth::user()->role;
+@endphp
+
+<div class="flex flex-row bg-gray-100 text-gray-700">
+    <div class="flex flex-col w-2/12 bg-white py-6 overflow-hidden">
+        <div class="text-3xl font-bold p-2  px-4">
+            Dashboard
         </div>
-    </div>
+        <div class="h-1 w-full rounded bg-gradient-to-b from-gray-400 via-gray-600 to-blue-800"></div>
+        
+        <ul class="flex flex-col py-4">
+          <li class="rounded-lg hover:bg-blue-100">
+            <a href="{{ route('dashboard.'.$role)}}" class="flex flex-row items-center h-12 pl-4 no-underline transform hover:translate-x-2 transition-transform ease-in duration-200 text-gray-700 hover:text-black">
+              <span class="text-lg font-medium">Dashboard</span>
+              <span class="ml-auto mr-6 text-lg bg-red-100 rounded-full px-3 py-px text-red-500">5</span>
+            </a>
+          </li>
+          <li class="rounded-lg hover:bg-red-100">
+            <a href="{{ route('creerAnnonce')}}" class="flex flex-row items-center h-12 pl-4 no-underline transform hover:translate-x-2 transition-transform ease-in duration-200 text-gray-700 hover:text-black">
+              <span class="text-lg font-medium">Creer annonce</span>
+            </a>
+          </li>
+          <li class="rounded-lg hover:bg-green-100">
+            <a href="#" class="flex flex-row items-center h-12 pl-4 no-underline transform hover:translate-x-2 transition-transform ease-in duration-200 text-gray-700 hover:text-black">
+              <span class="text-lg font-medium">Creer information</span>
+            </a>
+          </li>
+          <li class="rounded-lg hover:bg-yellow-100">
+            <a href="#" class="flex flex-row items-center h-12 pl-4 no-underline transform hover:translate-x-2 transition-transform ease-in duration-200 text-gray-700 hover:text-black">
+              <span class="text-lg font-medium">Mes publications</span>
+            </a>
+          </li>
+          @if ($role == "Admin")
+          <li class="rounded-lg hover:bg-gray-100">
+            <a href="#" class="flex flex-row items-center h-12 pl-4 no-underline transform hover:translate-x-2 transition-transform ease-in duration-200 text-gray-700 hover:text-black">
+              <span class="text-lg font-medium">Ecran d'affichage</span>
+            </a>
+          </li>
+          <li class="rounded-lg hover:bg-blue-100 ">
+            <a href="#" class="flex flex-row items-center h-12 pl-4 no-underline transform hover:translate-x-2 transition-transform ease-in duration-200 text-gray-700 hover:text-black">
+              <span class="text-lg font-medium">Ajouter membre</span>
+            </a>
+          </li>
+          <li class="rounded-lg hover:bg-red-100 ">
+            <a href="#" class="flex flex-row items-center h-12 pl-4 no-underline transform hover:translate-x-2 transition-transform ease-in duration-200 text-gray-700 hover:text-black">
+              <span class="text-lg font-medium">Liste Membres</span>
+            </a>
+          </li>
+          @endif
+
+          
+          @if ($role=="Responsable")
+          <li class="rounded-lg hover:bg-green-100">
+            <a href="#" class="flex flex-row items-center h-12 pl-4 no-underline transform hover:translate-x-2 transition-transform ease-in duration-200 text-gray-700 hover:text-black">
+              <span class="text-lg font-medium">Notifications</span>
+            </a>
+          </li>
+          <li class="rounded-lg hover:bg-gray-100">
+            <a href="#" class="flex flex-row items-center h-12 pl-4 no-underline transform hover:translate-x-2 transition-transform ease-in duration-200 text-gray-700 hover:text-black">
+              <span class="text-lg font-medium">Ecran d'affichage</span>
+            </a>
+          </li>
+          <li class="rounded-lg hover:bg-blue-100 ">
+            <a href="#" class="flex flex-row items-center h-12 pl-4 no-underline transform hover:translate-x-2 transition-transform ease-in duration-200 text-gray-700 hover:text-black">
+              <span class="text-lg font-medium">Ajouter membre</span>
+            </a>
+          </li>
+          <li class="rounded-lg hover:bg-red-100 ">
+            <a href="#" class="flex flex-row items-center h-12 pl-4 no-underline transform hover:translate-x-2 transition-transform ease-in duration-200 text-gray-700 hover:text-black">
+              <span class="text-lg font-medium">Liste Membres</span>
+            </a>
+          </li>
+          
+          @endif
+        </ul>
+      </div>
+    <main class="main w-10/12 m-1 bg-gray-50  shadow-md p-3">
+        @yield('main')
+    </main>
     
-    </div>
+  </div>
+
+@livewireScripts
 @endsection

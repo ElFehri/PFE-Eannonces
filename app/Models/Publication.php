@@ -18,14 +18,14 @@ class Publication extends Model
 
     public function user()
     {
-        return $this->belongsTo(User::class, 'user_id', 'id');
+        return $this->belongsTo(User::class, 'user_id');
     }
-    public function annonces()
+    public function annonce()
     {
-        return $this->hasMany(Annonce::class, 'pub_id', 'id');
+        return $this->hasOne(Annonce::class, 'pub_id');
     }
     public function information()
     {
-        return $this->hasMany(Information::class, 'pub_id', 'id');
+        return $this->hasOne(Information::class, 'pub_id');
     }
 }

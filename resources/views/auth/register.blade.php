@@ -1,7 +1,7 @@
 @extends('layouts.guest')
 
 @section('welcome')
-<div class="mt-12">
+<div class="mt-12 xl:mt-24">
     <div class="flex justify-center">
         <div class="w-1/2 mt-6">
             <div class="bg-white shadow-lg rounded-lg">

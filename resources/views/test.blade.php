@@ -18,7 +18,7 @@
 <body class="flex flex-row h-screen">
   <!-- component -->
 <div class="flex flex-wrap bg-gray-100 w-full h-screen">
-    <div class="w-3/12 bg-gary-900  p-3 shadow-lg ">
+    <div class="w-2/12 bg-gary-900  p-3 shadow-lg ">
         <div class=" space-x-4 p-2 mb-8 flex flex-wrap">
             <h1 class="font-semibold text-2xl mt-10 capitalize font-poppins tracking-wide">meteo </h1>
             <img class="h-10 w-10 mt-10 rounded-full" src="{{asset('/images/rain.png')}}" alt="La meteo">   
@@ -80,13 +80,13 @@
           
     </div>
 
-     <div class="w-9/12">
-        @foreach ($annonces as $key => $annonce)
-        <div class="p-4 annonce m-4 bg-white shadow-md" style="display: {{ $key === 0 ? 'block' : 'none' }}">
-            <h1 class="text-center font-bold text-3xl underline mt-4">{{ $annonce->title }}</h1>
-            <p class="font-bold text-md mx-9 my-16">{{ $annonce->content }}</p>
+     <div class="w-10/12">
+       {{--  @foreach ($annonces as $key => $annonce) --}}
+        <div class="p-4 annonce m-4 bg-white shadow-md" style="display: none">
+            <h1 class="text-center font-bold text-3xl underline mt-4">{{-- {{ $annonce->title }} --}} annonce de test</h1>
+            <p class="font-bold text-md mx-9 my-16">{{-- {{ $annonce->content }} --}} annonce body</p>
         </div>        
-        @endforeach
+        {{-- @endforeach --}}
       </div>
       
       <script>
@@ -110,9 +110,9 @@
             <div class="w-full">
                 <div class="w-full overflow-hidden">
                   <div class="p-2 h-12  bg-white shadow-lg">
-                    @foreach ($information as $key => $info)
-                    <p class="font-bold text-lg info " style="animation: marquee 30s linear infinite">{{ $info->content }}</p>
-                    @endforeach
+                    {{-- @foreach ($information as $key => $info) --}}
+                    <p class="font-bold text-lg info " style="animation: marquee 30s linear infinite">{{-- {{ $info->content }} --}} information</p>
+                    {{-- @endforeach --}}
                   </div>
                 </div>
             </div>

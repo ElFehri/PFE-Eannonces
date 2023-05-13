@@ -21,7 +21,7 @@
     <!-- Scripts -->
     @vite(['resources/sass/app.scss', 'resources/js/app.js'])
 
-    <livewire:styles />
+    @livewireStyles
 </head>
 <body>
     <div id="app" >
@@ -63,10 +63,11 @@
 
         <main>
             @yield('content')
+
         </main>
     </div>
 
     
-    <livewire:scripts />
+    @livewireScripts
 </body>
 </html>
