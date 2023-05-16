@@ -21,7 +21,6 @@
     <!-- Scripts -->
     @vite(['resources/sass/app.scss', 'resources/js/app.js'])
 
-    <livewire:styles />
 </head>
 <body>
     <div id="app" >
@@ -33,7 +32,7 @@
                     </a>
                 </div>
                 <div>
-                    @guest
+                @guest
                     @if (Route::has('login'))
                             <a class="font-bold text-white no-underline" href="{{ route('login') }}"><button class="btn btn-primary font-bold">{{ __('Login') }}</button></a>
                     @endif
@@ -42,18 +41,34 @@
                     @endif
                 @else
                     <div class="nav-item dropdown">
+                        @auth
                         <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
                             {{ Auth::user()->name }}
                         </a>
                         <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
+                            <a class="dropdown-item" href="#" >
+                                Dashboard
+                            </a>
+                            <a class="dropdown-item" href="#" >
+                                Mon profile
+                            </a>
+                            <a class="dropdown-item" href="#" >
+                                Mes annonces
+                            </a>
+                            <a class="dropdown-item" href="#" >
+                                Mes informations
+                            </a>
                             <a class="dropdown-item" href="{{ route('logout') }}"
                                 onclick="event.preventDefault();
-                                    document.getElementById('logout-form').submit();">
-                                {{ __('Logout') }}
+                                document.getElementById('logout-form').submit();">
+                                    Déconnexion
                             </a>
                             <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
                                 @csrf
                             </form>
+                        </div>
+                        @endauth
+                                
                         </div>
                     </div>
                 @endguest
@@ -67,6 +82,6 @@
         </main>
     </div>
 
-    <livewire:scripts />
+   
 </body>
 </html>

@@ -23,7 +23,7 @@ class UsersTableSeeder extends Seeder
         User::create([
             'name' => $faker->name,
             'email' => $faker->email,
-            'cin' => 'CIN00',
+            'CIN' => 'CIN00',
             'role' => 'Responsable',
             'password' => Hash::make('resp1234'),
             'authorized' => true,
@@ -35,7 +35,7 @@ class UsersTableSeeder extends Seeder
             User::create([
                 'name' => $faker->name,
                 'email' => $faker->email,
-                'cin' => 'CIN0'.$i,
+                'CIN' => 'CIN0'.$i,
                 'role' => 'Admin',
                 'password' => Hash::make('admin1234'),
                 'authorized' => true,
@@ -52,7 +52,7 @@ class UsersTableSeeder extends Seeder
             User::create([
                 'name' => $faker->name,
                 'email' => $faker->email,
-                'cin' => 'CIN00'.$i,
+                'CIN' => 'CIN00'.$i,
                 'role' => 'Member',
                 'password' => Hash::make('member1234'),
                 'authorized' => $authorized,

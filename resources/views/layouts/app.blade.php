@@ -21,53 +21,29 @@
     <!-- Scripts -->
     @vite(['resources/sass/app.scss', 'resources/js/app.js'])
 
-    @livewireStyles
+    
 </head>
 <body>
+
+@php
+$role = Auth::user()->role;
+@endphp
+
     <div id="app" >
-        <div class="w-full bg-white shadow-lg">
-            <div class="px-4 flex flex-wrap items-center justify-between">
-                <div class="m-2">
-                    <a class="navbar-brand" href="{{ url('/') }}">
-                        <img src="{{asset('images/logo.png')}}" alt="E-Annonce" class="h-12">
-                    </a>
-                </div>
-                <div class="nav-item dropdown mr-8">
-                    @auth
-                    <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
-                        {{ Auth::user()->name }}
-                    </a>
-                    <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
-                        <a class="dropdown-item" href="#" >
-                            Mon profile
-                        </a>
-                        <a class="dropdown-item" href="#" >
-                            Mes annonces
-                        </a>
-                        <a class="dropdown-item" href="#" >
-                            Mes informations
-                        </a>
-                        <a class="dropdown-item" href="{{ route('logout') }}"
-                            onclick="event.preventDefault();
-                                document.getElementById('logout-form').submit();">
-                            Déconnexion
-                        </a>
-                        <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
-                            @csrf
-                        </form>
-                    </div>
-                    @endauth
-                </div>
-            </div>
+        @include('partials.header')
+
+        <div class="flex flex-row bg-gray-100 text-gray-700">
+            <div class="flex flex-col w-2/12 bg-white py-6 overflow-hidden">
+                @include('partials.sidebar')
+              </div>
+            <main class="main w-10/12 m-1 bg-gray-50  shadow-md p-3">
+                @yield('content')
+            </main>
+            
         </div>
-
-        <main>
-            @yield('content')
-
-        </main>
     </div>
 
     
-    @livewireScripts
+   
 </body>
 </html>

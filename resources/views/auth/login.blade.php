@@ -8,6 +8,7 @@
             <div class="bg-white shadow-lg rounded-lg">
                 <div class="bg-green-700 text-white text-center text-xl py-2 px-6 rounded-t-lg">
                     <h1 class="font-bold text-3xl">{{ __('Login') }}</h1>
+                    
                 </div>
                 @if (session('unauthorized'))
                     <div class="mt-4 bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative unauthorized-alert" role="alert">

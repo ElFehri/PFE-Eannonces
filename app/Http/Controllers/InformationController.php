@@ -15,28 +15,20 @@ use PhpParser\Node\Stmt\If_;
 
 class InformationController extends Controller
 {
-     public function index()
+    public function index()
     {
         $information = DB::table('information')
             ->join('publications', 'information.pub_id', '=', 'publications.id')
             ->where('publications.type', '=', 'Information')
             ->get();
         
-        return response()->json(['information'=> $information]);
+        return view('information.index',['information'=> $information]);
     }
 
-    public function index_livewire()
-    {
-        $information = DB::table('information')
-            ->join('publications', 'information.pub_id', '=', 'publications.id')
-            ->where('publications.type', '=', 'Information')
-            ->get();
-        
-        return view('livewire.information-component', [
-            'information' => $information
-        ]);
+    public function create()
+    {        
+        return view('information.create');
     }
-
     public function store(Request $request)
     {
         try {
@@ -53,10 +45,9 @@ class InformationController extends Controller
             $information->pub_id = $publication->id;
             $information->save();
 
-            return response()->json(['message'=> 'Information created successfuly']);
-
+            return redirect()->back()->with(['message' => 'Information bien cree']);
         } catch (Error $e) {
-            return response()->json(['error'=> $e]);
+            return redirect()->back()->with(['error' => $e]);
         }
     }
 
@@ -65,15 +56,15 @@ class InformationController extends Controller
         $information = Information::where('information.pub_id', $pub_id)->first();
         $publication = Publication::where('publications.id', $pub_id)->first();
     
-        return response()->json(['information'=>$information, 'publication'=>$publication]);
+        return view('information.show',['information'=>$information, 'publication'=>$publication]);
     }
 
-    /* public function edit($pub_id)
+    public function edit($pub_id)
     {
         $information = Information::where('information.pub_id', $pub_id)->first();
         $publication = Publication::where('publications.id', $pub_id)->first();
         return view('information.edit', compact('information', 'publication'));
-    } */
+    } 
 
     public function update(Request $request, Information $information)
     {
@@ -86,20 +77,15 @@ class InformationController extends Controller
             $information->content = $request->input('content');
             $information->save();
 
-            return response()->json(['message'=> 'Information updated successfuly']);
-
+            return redirect()->route('home')->with(['message' => 'Information bien modifie']);
         } catch (Error $e) {
-            return response()->json(['error'=> $e]);
+            return redirect()->back()->with(['error' => $e]);
         }
     }
 
     public function destroy($pub_id)
     {
-        /* $information = Information::where('information.pub_id', $pub_id)->first();
-        $publication = Publication::where('publications.id', $pub_id)->first();
-        $publication->delete();
-        $information->delete();
-
-        return redirect()->route('information.index'); */
+        $information = Information::with('publication')->delete();        
+        return redirect()->route('information.index'); 
     }
 }

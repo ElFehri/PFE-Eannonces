@@ -12,20 +12,10 @@ use Error;
 
 class AnnonceController extends Controller
 {
-    public function index()
-    {
-        $annonces = DB::table('annonces')
-            ->join('publications', 'annonces.pub_id', '=', 'publications.id')
-            ->where('publications.type', '=', 'Annonce')
-            ->get();
-
-        return response()->json(['annonces'=> $annonces]);
-    }
-
-   /*  public function create()
-    {
+   
+    public function create(){
         return view('annonces.create');
-    } */
+    }
 
     public function store(Request $request)
     {
@@ -44,9 +34,9 @@ class AnnonceController extends Controller
             $annonce->pub_id = $publication->id;
             $annonce->save();
 
-            return response()->json(['message'=> 'Announcement created successfuly']);
+            return redirect()->back()->with(['message' => 'Annonce bien cree']);
         } catch (Error $e) {
-            return response()->json(['error'=> $e]);
+            return redirect()->back()->with(['error' => $e ]);
         }
     }
 
@@ -56,7 +46,7 @@ class AnnonceController extends Controller
         $annonce = Annonce::where('annonces.pub_id', $pub_id)->first();
         $publication = Publication::where('publications.id', $pub_id)->first();
 
-        return response()->json(['annonce'=>$annonce, 'publication'=>$publication]);
+        return view('annonces.show', ['annonce'=>$annonce, 'publication'=>$publication]);
     }
 
     public function edit($pub_id)
@@ -79,9 +69,9 @@ class AnnonceController extends Controller
             $annonce->title = $request->input('title');
             $annonce->save();
 
-            return response()->json(['message'=> 'Announcement updated successfuly']);
+            return redirect()->route('home')->with(['message' => 'Annonce bien modifie']);
         } catch (Error $e) {
-            return response()->json(['error'=> $e]);
+            return redirect()->back()->with(['error' => "Annonce n'est pas modifie"]);
         }
     }
 

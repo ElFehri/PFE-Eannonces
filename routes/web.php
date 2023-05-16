@@ -1,48 +1,40 @@
 <?php
 
-
+use App\Http\Controllers\AnnonceController;
+use App\Http\Controllers\DashPublications;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
-use App\Http\Livewire\Test;
-use App\Http\Livewire\UserDashboard;
 use Illuminate\Support\Facades\Auth;
 use Livewire\Livewire;
 
-// ...
+// role
 
 Auth::routes();
 
 
 
-Route::group(['prefix'=> 'dashboard'], function(){
-    Route::get('/Admin', function(){
-        return view('dashboard.Admin');})->name('dashboard.Admin');
+Route::group(['prefix'=> 'home', 'middleware'=>'auth'], function(){
+   
+    //route apres l'auth
+    Route::get('/dashboard', [HomeController::class, 'index'])->name('home');
+
     
-    Route::get('/Responsable', function(){
-        return view('livewire.test');})->name('dashboard.Responsable');
+    Route::get('/test', [DashPublications::class, 'ecran'])->name('ecran');
+
+    Route::resource('/annonces', AnnonceController::class);
     
-    Route::get('/Member', function(){
-        return view('dashboard.Member');})->name('dashboard.Member');
-
-    Route::get('create/annonce', function(){
-        return view('annonces.create');
-    })->name('creerAnnonce');
-
-})->middleware(['auth', 'admin', 'responsable']);
+    Route::resource('/information', AnnonceController::class);
 
 
+   
 
-
+});
 
 
 
 Route::get('/', function () {
     return view('welcome');
 });
-Route::get('/test', function(){
-    return view('test');
-});
-Route::get('/home' , [HomeController::class, 'index']);
-// Users type
+
 
    
