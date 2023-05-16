@@ -1,9 +1,8 @@
 @extends('layouts.app')
 @section('content')
 
-
 <div class="flex flex-col items-center justify-center mt-8">
-    <div class="w-2/3">
+    <div class="w-3/4">
         <form method="POST" action="{{ route('annonces.store') }}" class="bg-white shadow-lg rounded px-8 pt-6 pb-8 mb-4">
             @csrf
 			<h2 class="text-center font-bold text-3xl mb-4">Nouveau Annonce</h2>

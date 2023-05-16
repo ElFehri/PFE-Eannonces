@@ -20,7 +20,7 @@
     </a>
   </li>
   <li class="rounded-lg hover:bg-yellow-100">
-    <a href="#" class="flex flex-row items-center h-12 pl-4 no-underline transform hover:translate-x-2 transition-transform ease-in duration-200 text-gray-700 hover:text-black">
+    <a href="{{ route('mesPublications')}}" class="flex flex-row items-center h-12 pl-4 no-underline transform hover:translate-x-2 transition-transform ease-in duration-200 text-gray-700 hover:text-black">
       <span class="text-lg font-medium">Mes publications</span>
     </a>
   </li>

@@ -59,10 +59,10 @@ class InformationController extends Controller
         return view('information.show',['information'=>$information, 'publication'=>$publication]);
     }
 
-    public function edit($pub_id)
+    public function edit($id)
     {
-        $information = Information::where('information.pub_id', $pub_id)->first();
-        $publication = Publication::where('publications.id', $pub_id)->first();
+        $information = Information::with('publication')->findOrFail($id);
+        $publication = $information->publication;
         return view('information.edit', compact('information', 'publication'));
     } 
 
@@ -83,9 +83,9 @@ class InformationController extends Controller
         }
     }
 
-    public function destroy($pub_id)
+    public function destroy($id)
     {
-        $information = Information::with('publication')->delete();        
-        return redirect()->route('information.index'); 
+        $information = Information::with('publication')->findOrFail($id)->deleteOrFail();        
+        return redirect()->route('home'); 
     }
 }

@@ -2,29 +2,19 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Annonce;
-use App\Models\Publication;
-use Error;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\DB;
 
-
-class HomeController extends Controller
+class UsersController extends Controller
 {
     
-    
-    
-    public function index()
-    {
-       // Récupérer l'utilisateur authentifié
+
+    public function mesPublications(){
+        // Récupérer l'utilisateur authentifié
         $user = Auth::user();
 
-        // Récupérer les publications créées aujourd'hui avec les annonces et les informations associées à l'utilisateur authentifié
-        $publications = $user->publications()
-            ->whereDate('created_at', now()->toDateString())
-            ->with('annonce', 'information')
-            ->get();
+        // Récupérer toutes les publications avec les annonces et les informations associées à l'utilisateur authentifié
+        $publications = $user->publications()->with('annonce', 'information')->get();
 
         // Tableaux pour stocker les annonces et les informations
         $annonces = [];
@@ -42,8 +32,6 @@ class HomeController extends Controller
         }
 
         // Passer les tableaux d'annonces et d'informations à la vue
-        return view('home', compact('annonces', 'informations'));
-
+        return view('users.mesPublications', compact('annonces', 'informations'));
     }
-
 }

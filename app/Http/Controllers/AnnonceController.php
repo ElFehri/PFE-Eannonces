@@ -49,11 +49,10 @@ class AnnonceController extends Controller
         return view('annonces.show', ['annonce'=>$annonce, 'publication'=>$publication]);
     }
 
-    public function edit($pub_id)
+    public function edit($id)
     {
-        $annonce = Annonce::where('annonces.pub_id', $pub_id)->first();
-        $publication = Publication::where('publications.id', $pub_id)->first();
-    
+        $annonce = Annonce::with('publication')->findOrFail($id);
+        $publication = $annonce->publication;
         return view('annonces.edit', compact('annonce', 'publication'));
     }
 
@@ -75,13 +74,10 @@ class AnnonceController extends Controller
         }
     }
 
-    public function destroy($pub_id)
+    public function destroy($id)
     {
-        /* $annonce = Annonce::where('annonces.pub_id', $pub_id)->first();
-        $publication = Publication::where('publications.id', $pub_id)->first();
-        $publication->delete();
-        $annonce->delete();
-
-        return redirect()->route('annonces.index'); */
+        $annonce = Annonce::with('publication')->findOrFail($id)->deleteOrFail();
+        
+        return redirect()->route('annonces.index'); 
     }
 }
