@@ -9,29 +9,35 @@ class UsersController extends Controller
 {
     
 
-    public function mesPublications(){
-        // Récupérer l'utilisateur authentifié
+    public function mesAnnonces()
+    {
         $user = Auth::user();
 
-        // Récupérer toutes les publications avec les annonces et les informations associées à l'utilisateur authentifié
-        $publications = $user->publications()->with('annonce', 'information')->get();
+        $publications = $user->publications()->with('annonce')->get();
 
-        // Tableaux pour stocker les annonces et les informations
         $annonces = [];
-        $informations = [];
-
-        // Parcourir les publications et stocker les annonces et les informations dans les tableaux respectifs
         foreach ($publications as $publication) {
             if ($publication->annonce) {
                 $annonces[] = $publication->annonce;
             }
+        }
 
+        return view('users.mesAnnonces', compact('annonces'));
+    }
+
+    public function mesInformations(){
+        $user = Auth::user();
+
+        $publications = $user->publications()->with('information')->get();
+        $informations = [];
+        foreach ($publications as $publication) {
             if ($publication->information) {
-                $informations[] = $publication->information;
+                $informations[] = $publication->information;    
             }
+            
         }
 
         // Passer les tableaux d'annonces et d'informations à la vue
-        return view('users.mesPublications', compact('annonces', 'informations'));
+        return view('users.mesInformations', compact('informations'));
     }
 }

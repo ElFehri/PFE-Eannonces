@@ -14,10 +14,10 @@
                 <a class="dropdown-item" href="#" >
                     Mon profile
                 </a>
-                <a class="dropdown-item" href="#" >
+                <a class="dropdown-item" href="{{route('mesAnnonces')}}" >
                     Mes annonces
                 </a>
-                <a class="dropdown-item" href="#" >
+                <a class="dropdown-item" href="{{route('mesInformations')}}" >
                     Mes informations
                 </a>
                 <a class="dropdown-item" href="{{ route('logout') }}"

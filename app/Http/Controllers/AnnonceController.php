@@ -22,7 +22,6 @@ class AnnonceController extends Controller
         try {
             $user = Auth::user();
             $publication = new Publication;
-            $publication->type = "Annonce";
             $publication->user_id = $user->id;
             $publication->start_date = $request->input('start_date');
             $publication->end_date = $request->input('end_date');
@@ -34,20 +33,24 @@ class AnnonceController extends Controller
             $annonce->pub_id = $publication->id;
             $annonce->save();
 
-            return redirect()->back()->with(['message' => 'Annonce bien cree']);
+            return redirect()->back()->with(['message' => 'Annonce créée avec succès.']);
         } catch (Error $e) {
             return redirect()->back()->with(['error' => $e ]);
         }
     }
 
 
-    public function show($pub_id)
+    public function show($id)
     {
-        $annonce = Annonce::where('annonces.pub_id', $pub_id)->first();
-        $publication = Publication::where('publications.id', $pub_id)->first();
+        $annonce = Annonce::with('publication')->find($id);
 
-        return view('annonces.show', ['annonce'=>$annonce, 'publication'=>$publication]);
+        if (!$annonce) {
+            abort(404); 
+        }
+
+        return view('annonces.show', compact('annonce'));
     }
+
 
     public function edit($id)
     {
@@ -68,16 +71,20 @@ class AnnonceController extends Controller
             $annonce->title = $request->input('title');
             $annonce->save();
 
-            return redirect()->route('home')->with(['message' => 'Annonce bien modifie']);
+            return redirect()->route('home')->with(['message' => 'Annonce modifiée avec succès.']);
         } catch (Error $e) {
-            return redirect()->back()->with(['error' => "Annonce n'est pas modifie"]);
+            return redirect()->back()->with(['error' => $e]);
         }
     }
 
     public function destroy($id)
     {
-        $annonce = Annonce::with('publication')->findOrFail($id)->deleteOrFail();
-        
-        return redirect()->route('annonces.index'); 
+        try {
+            $annonce = Annonce::with('publication')->findOrFail($id)->deleteOrFail();
+            return redirect()->route('home')->with(['message'=>"L'annonce a été supprimée avec succès."]); 
+    
+        } catch (Error $e) {
+            return redirect()->route('home')->with(['error'=>$e]);
+        }
     }
 }

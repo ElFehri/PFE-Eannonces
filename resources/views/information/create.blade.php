@@ -50,15 +50,6 @@
     </div>
 </div>
 
-<script>
-    document.addEventListener('DOMContentLoaded', function() {
-        const alertElement = document.querySelector('.session-alert');
+<script src="{{asset('/js/messageTimeSet.js')}}"></script>
 
-        if (alertElement) {
-            setTimeout(function() {
-                alertElement.remove();
-            }, 5000);
-        }
-    });
-</script>
 @endsection

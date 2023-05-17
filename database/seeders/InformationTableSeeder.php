@@ -13,7 +13,7 @@ class InformationTableSeeder extends Seeder
 {
     public function run()
     {
-        $faker = Faker::create();
+        /* $faker = Faker::create();
 
         $publications = Publication::where('type', 'Information')->get();
 
@@ -22,6 +22,6 @@ class InformationTableSeeder extends Seeder
                 'content' => $faker->sentence,
                 'pub_id' => $publication->id,
             ]);
-        }
+        } */
     }
 }

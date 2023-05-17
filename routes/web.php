@@ -17,18 +17,22 @@ Auth::routes();
 
 Route::group(['prefix'=> 'home', 'middleware'=>'auth'], function(){
    
-    //route apres l'auth
+    //route apres l'auth par default
     Route::get('/dashboard', [HomeController::class, 'index'])->name('home');
 
+    //les routes des annonces et des informaions
     Route::resource('/annonces', AnnonceController::class);
     
     Route::resource('/information', InformationController::class);
 
-    Route::get('/mes/publications', [UsersController::class, 'mesPublications'])->name('mesPublications');
+    //routes entre utilisateur et  publications
+    Route::get('/mes/annonces', [UsersController::class, 'mesAnnonces'])->name('mesAnnonces');
+
+    Route::get('/mes/informations', [UsersController::class, 'mesInformations'])->name('mesInformations');
    
 
     //users-list, profile, user-profile, screen
-    Route::get('/test', [DashPublications::class, 'ecran'])->name('ecran');
+    Route::get('/screen', [DashPublications::class, 'screen'])->name('ecran');
 
     Route::get('/users/list', [UsersController::class, 'usersList'])->name('usersList');
 

@@ -3,7 +3,7 @@
 @section('content')
 <div class="flex flex-col items-center justify-center h-screen">
     <div class="w-full max-w-lg m-x-6">
-        <form method="POST" action="{{-- {{ route('information.update', $information) }} --}}" class="bg-white shadow-lg rounded px-8 pt-6 pb-8 mb-4">
+        <form method="POST" action="{{ route('information.update', $information) }}" class="bg-white shadow-lg rounded px-8 pt-6 pb-8 mb-4">
             @csrf
             @method('PUT')
 			      <h2 class="text-center font-bold text-3xl mb-3">Edit Annonce</h2>

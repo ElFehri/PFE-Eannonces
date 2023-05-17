@@ -5,7 +5,7 @@
     <div class="flex justify-center">
         <div class="w-1/2 mt-6">
             <div class="bg-white shadow-lg rounded-lg">
-                <div class="bg-green-100 text-center text-xl py-2 px-6 rounded-t-lg">
+                <div class="bg-blue-900 text-white text-center text-xl py-2 px-6 rounded-t-lg">
                     <h1 class="font-bold text-3xl">{{ __('Registration') }}</h1>
                 </div>
 

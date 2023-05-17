@@ -1,9 +1,9 @@
 @extends('layouts.guest')
 
 @section('welcome')
-<div class="mt-12 lg:mt-24">
+<div class="my-12 lg:mt-24 ">
     <div class="flex justify-center">
-        <div class="w-1/2 mt-6">
+        <div class="w-1/2 mt-6 ">
            
             <div class="bg-white shadow-lg rounded-lg">
                 <div class="bg-green-700 text-white text-center text-xl py-2 px-6 rounded-t-lg">
@@ -16,7 +16,7 @@
                     </div>
                 @endif
 
-                <div class="p-6">
+                <div class="px-16 py-6">
                     <form method="POST" action="{{ route('login') }}">
                         @csrf
                 

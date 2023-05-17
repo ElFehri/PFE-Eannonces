@@ -10,7 +10,7 @@ class Publication extends Model
     use HasFactory;
 
     protected $fillable = [
-        'type',
+        
         'start_date',
         'end_date',
         'user_id'

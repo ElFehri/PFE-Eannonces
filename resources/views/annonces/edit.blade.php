@@ -2,8 +2,8 @@
 
 @section('content')
 
-<div class="flex flex-col items-center justify-center h-screen">
-    <div class="w-full max-w-lg m-x-6">
+<div class="flex justify-center mt-8">
+    <div class="w-3/4">
         <form method="POST" action="{{ route('annonces.update', $annonce) }}" class="bg-white shadow-lg rounded px-8 pt-6 pb-8 mb-4">
             @csrf
             @method('PUT')

@@ -1,4 +1,4 @@
-<!-- home.blade.php -->
+<!-- mesPublications.blade.php -->
 
 @extends('layouts.app')
 
@@ -16,7 +16,9 @@
                     </div>
                 </div>
             @empty
-                <p>Aucune annonce disponible.</p>
+            <div class="mt-4 bg-blue-100 border border-blue-400 text-center text-blue-900 px-4 py-2 rounded relative session-alert" role="alert">
+                <span class="block sm:inline">Vous n'avez pas encore créé d'annonces.</span>
+            </div>
             @endforelse
         </div>
 
@@ -31,7 +33,9 @@
                     </div>
                 </div>
             @empty
-                <p>Aucune information disponible.</p>
+            <div class="mt-4 bg-blue-100 border border-blue-400 text-center text-blue-900 px-4 py-2 rounded relative session-alert" role="alert">
+                <span class="block sm:inline">Vous n'avez pas encore créé d'informations.</span>
+            </div>
             @endforelse
         </div>
     </div>

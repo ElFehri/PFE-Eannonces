@@ -11,7 +11,7 @@ class AnnoncesTableSeeder extends Seeder
 {
     public function run()
     {
-        $faker = Faker::create();
+/*         $faker = Faker::create();
 
         $publications = Publication::where('type', 'Annonce')->get();
 
@@ -21,6 +21,6 @@ class AnnoncesTableSeeder extends Seeder
                 'content' => $faker->paragraph,
                 'pub_id' => $publication->id,
             ]);
-        }
+        } */
     }
 }

@@ -14,7 +14,6 @@ return new class extends Migration
         Schema::create('publications', function (Blueprint $table) {
             $table->id();
             $table->foreignId('user_id')->constrained('users','id')->onDelete('CASCADE')->onUpdate('cascade');
-            $table->string('type');
             $table->dateTime('start_date');
             $table->dateTime('end_date');
             $table->timestamps();

@@ -21,9 +21,10 @@
     <!-- Scripts -->
     @vite(['resources/sass/app.scss', 'resources/js/app.js'])
 
+    
 </head>
-<body>
-    <div id="app" >
+<body class="leading-normal tracking-normal gradient" >
+    <div id="app" class="">
         <div class="w-full bg-white shadow-sm fixed top-0 left-0 right-0 z-10">
             <div class="px-4 flex flex-wrap items-center justify-between">
                 <div class="m-2">
@@ -46,7 +47,7 @@
                             {{ Auth::user()->name }}
                         </a>
                         <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
-                            <a class="dropdown-item" href="#" >
+                            <a class="dropdown-item" href="{{route('home')}}" >
                                 Dashboard
                             </a>
                             <a class="dropdown-item" href="#" >
@@ -76,9 +77,8 @@
             </div>
         </div>
 
-        <main>
-            @yield('welcome')
-                
+        <main >
+            @yield('welcome')              
         </main>
     </div>
 

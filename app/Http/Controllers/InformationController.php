@@ -15,16 +15,6 @@ use PhpParser\Node\Stmt\If_;
 
 class InformationController extends Controller
 {
-    public function index()
-    {
-        $information = DB::table('information')
-            ->join('publications', 'information.pub_id', '=', 'publications.id')
-            ->where('publications.type', '=', 'Information')
-            ->get();
-        
-        return view('information.index',['information'=> $information]);
-    }
-
     public function create()
     {        
         return view('information.create');
@@ -34,7 +24,6 @@ class InformationController extends Controller
         try {
             $user = Auth::user();
             $publication = new Publication;
-            $publication->type = "Information";
             $publication->user_id = $user->id;
             $publication->start_date = $request->input('start_date');
             $publication->end_date = $request->input('end_date');
@@ -45,18 +34,21 @@ class InformationController extends Controller
             $information->pub_id = $publication->id;
             $information->save();
 
-            return redirect()->back()->with(['message' => 'Information bien cree']);
+            return redirect()->back()->with(['message' => 'Information créée avec succès.']);
         } catch (Error $e) {
             return redirect()->back()->with(['error' => $e]);
         }
     }
 
-    public function show($pub_id)
+    public function show($id)
     {
-        $information = Information::where('information.pub_id', $pub_id)->first();
-        $publication = Publication::where('publications.id', $pub_id)->first();
-    
-        return view('information.show',['information'=>$information, 'publication'=>$publication]);
+        $information = Information::with('publication')->find($id);
+
+        if (!$information) {
+            abort(404); 
+        }
+
+        return view('information.show', compact('information'));
     }
 
     public function edit($id)
@@ -77,7 +69,7 @@ class InformationController extends Controller
             $information->content = $request->input('content');
             $information->save();
 
-            return redirect()->route('home')->with(['message' => 'Information bien modifie']);
+            return redirect()->route('home')->with(['message' => 'Information modifiée avec succès.']);
         } catch (Error $e) {
             return redirect()->back()->with(['error' => $e]);
         }
@@ -85,7 +77,11 @@ class InformationController extends Controller
 
     public function destroy($id)
     {
-        $information = Information::with('publication')->findOrFail($id)->deleteOrFail();        
-        return redirect()->route('home'); 
+        try {
+            $information = Information::with('publication')->findOrFail($id)->deleteOrFail();        
+            return redirect()->route('home')->with(['message'=>"L'information a été supprimée avec succès."]);
+        } catch (Error $e) {
+            return redirect()->route('home')->with(['error'=>$e]);
+        } 
     }
 }
