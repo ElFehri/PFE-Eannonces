@@ -10,10 +10,11 @@ class Publication extends Model
     use HasFactory;
 
     protected $fillable = [
-        
+        'user_id',
         'start_date',
         'end_date',
-        'user_id'
+        /* 'Masked',
+        'Validated', */
     ];
 
     public function user()

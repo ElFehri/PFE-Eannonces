@@ -16,6 +16,8 @@ return new class extends Migration
             $table->foreignId('user_id')->constrained('users','id')->onDelete('CASCADE')->onUpdate('cascade');
             $table->dateTime('start_date');
             $table->dateTime('end_date');
+            /* $table->boolean('Masked')->default(false);
+            $table->integer('Validated')->default(0)->comment('1: Validated, 0: In review, -1: Rejected'); */
             $table->timestamps();
         });
     }

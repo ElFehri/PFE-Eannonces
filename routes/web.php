@@ -29,7 +29,12 @@ Route::group(['prefix'=> 'home', 'middleware'=>'auth'], function(){
     Route::get('/mes/annonces', [UsersController::class, 'mesAnnonces'])->name('mesAnnonces');
 
     Route::get('/mes/informations', [UsersController::class, 'mesInformations'])->name('mesInformations');
-   
+
+    Route::get('/all/annonces', [HomeController::class,'allAnnonces'])->name('allAnnonces');
+
+    Route::get('/all/informations', [HomeController::class,'allInformations'])->name('allInformations');
+
+    
 
     //users-list, profile, user-profile, screen
     Route::get('/screen', [DashPublications::class, 'screen'])->name('ecran');

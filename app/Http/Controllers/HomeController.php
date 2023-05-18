@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Annonce;
+use App\Models\Information;
 use App\Models\Publication;
 use Error;
 use Illuminate\Http\Request;
@@ -45,5 +46,19 @@ class HomeController extends Controller
         return view('home', compact('annonces', 'informations'));
 
     }
+    public function allAnnonces()
+    {
+        $annonces = Annonce::with('publication.user')->get();
+
+        return view('allAnnonces', compact('annonces'));
+    }
+
+    public function allInformations()
+    {
+        $informations = Information::with('publication.user')->get();
+
+        return view('allInformations', compact('informations'));
+    }
+
 
 }
