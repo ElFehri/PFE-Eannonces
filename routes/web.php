@@ -5,6 +5,8 @@ use App\Http\Controllers\InformationController;
 use App\Http\Controllers\DashPublications;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\PublicationController;
+use App\Http\Controllers\ResponsableController;
 use App\Http\Controllers\UsersController;
 use Illuminate\Support\Facades\Auth;
 
@@ -34,6 +36,17 @@ Route::group(['prefix'=> 'home', 'middleware'=>'auth'], function(){
 
     Route::get('/all/informations', [HomeController::class,'allInformations'])->name('allInformations');
 
+    //Les notifications de responsable
+    Route::get('/new/announcements', [ResponsableController::class,'newAnnonces'])->name('newAnnonces');
+    Route::get('/new/information', [ResponsableController::class,'newInformations'])->name('newInformations');
+    Route::get('/publication/valide/{id}', [PublicationController::class, 'validatePublication'])->name('publication.valide');
+    Route::get('/publication/reject/{id}', [PublicationController::class, 'rejectPublication'])->name('publication.reject');
+
+    Route::get('/new/users', [ResponsableController::class,'newUsers'])->name('newUsers');
+    Route::get('/responsable/validate/{user}', [ResponsableController::class, 'validateUser'])->name('responsable.validate');
+    Route::delete('/responsable/reject/{user}', [ResponsableController::class, 'rejectUser'])->name('responsable.reject');
+
+
     
 
     //users-list, profile, user-profile, screen
@@ -41,9 +54,19 @@ Route::group(['prefix'=> 'home', 'middleware'=>'auth'], function(){
 
     Route::get('/users/list', [UsersController::class, 'usersList'])->name('usersList');
 
-    Route::get('/user/profile', [UsersController::class, 'userProfile'])->name('userProfile');
+    Route::get('/user/profile/{id}', [UsersController::class, 'userProfile'])->name('userProfile');
 
     Route::get('/my/profile', [UsersController::class, 'profile'])->name('profile');
+
+    Route::post('/my/profile', [UsersController::class, 'editProfile'])->name('editProfile');
+
+    Route::delete('/user/delete/{id}', [UsersController::class, 'deleteUser'])->name('deleteUser');
+
+
+    //gestion des utilisateurs
+    Route::get('/add/user', [UsersController::class, 'addUser'])->name('addUser');
+
+    Route::post('/store/user', [UsersController::class, 'storeUser'])->name('storeUser');
 
 });
 

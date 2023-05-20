@@ -13,8 +13,8 @@ class Publication extends Model
         'user_id',
         'start_date',
         'end_date',
-        /* 'Masked',
-        'Validated', */
+        'Masked',
+        'Validated',
     ];
 
     public function user()

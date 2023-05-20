@@ -36,12 +36,12 @@
     </a>
   </li>
   <li class="rounded-lg hover:bg-blue-100 ">
-    <a href="#" class="flex flex-row items-center h-12  no-underline transform hover:translate-x-2 transition-transform ease-in duration-200 text-gray-700 hover:text-black">
+    <a href="{{route('addUser')}}" class="flex flex-row items-center h-12  no-underline transform hover:translate-x-2 transition-transform ease-in duration-200 text-gray-700 hover:text-black">
       <span class="text-lg font-medium"><i class="fa fa-user-plus pr-0 md:pr-3"></i> Membre</span>
     </a>
   </li>
   <li class="rounded-lg hover:bg-red-100 ">
-    <a href="#" class="flex flex-row items-center h-12  no-underline transform hover:translate-x-2 transition-transform ease-in duration-200 text-gray-700 hover:text-black">
+    <a href="{{route('usersList')}}" class="flex flex-row items-center h-12  no-underline transform hover:translate-x-2 transition-transform ease-in duration-200 text-gray-700 hover:text-black">
       <span class="text-lg font-medium"><i class="fa fa-users pr-0 md:pr-3"></i> Liste Membres</span>
     </a>
   </li>
@@ -50,11 +50,12 @@
   
   @if ($role=="Responsable")
   <li class="rounded-lg hover:bg-green-100">
-    <a href="#" class="flex flex-row items-center h-12  no-underline transform hover:translate-x-2 transition-transform ease-in duration-200 text-gray-700 hover:text-black">
+    <a href="{{route('newAnnonces')}}" class="flex flex-row items-center h-12  no-underline transform hover:translate-x-2 transition-transform ease-in duration-200 text-gray-700 hover:text-black">
       <span class="text-lg font-medium"><i class="fa fa-bell pr-0 md:pr-3"></i> Notifications</span>
       <span class="ml-2 text-lg bg-red-100 rounded-full px-2 py-px text-red-500">5</span>
-
     </a>
+  </li>
+  
     <li class="rounded-lg hover:bg-gray-100">
       <a href="{{ route('allAnnonces')}}" class="flex flex-row items-center h-12  no-underline transform hover:translate-x-2 transition-transform ease-in duration-200 text-gray-700 hover:text-black">
         <span class="text-lg font-medium"><i class="fa fa-bars pr-0 md:pr-3"></i> annonces</span>
@@ -72,12 +73,12 @@
     </a>
   </li>
   <li class="rounded-lg hover:bg-blue-100 ">
-    <a href="#" class="flex flex-row items-center h-12  no-underline transform hover:translate-x-2 transition-transform ease-in duration-200 text-gray-700 hover:text-black">
+    <a href="{{route('addUser')}}" class="flex flex-row items-center h-12  no-underline transform hover:translate-x-2 transition-transform ease-in duration-200 text-gray-700 hover:text-black">
       <span class="text-lg font-medium"><i class="fa fa-user-plus pr-0 md:pr-3"></i> Membre</span>
     </a>
   </li>
   <li class="rounded-lg hover:bg-red-100 ">
-    <a href="#" class="flex flex-row items-center h-12  no-underline transform hover:translate-x-2 transition-transform ease-in duration-200 text-gray-700 hover:text-black">
+    <a href="{{route('usersList')}}" class="flex flex-row items-center h-12  no-underline transform hover:translate-x-2 transition-transform ease-in duration-200 text-gray-700 hover:text-black">
       <span class="text-lg font-medium"><i class="fa fa-users pr-0 md:pr-3"></i> Liste Membres</span>
     </a>
   </li>

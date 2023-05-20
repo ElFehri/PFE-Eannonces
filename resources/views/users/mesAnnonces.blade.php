@@ -23,7 +23,7 @@
                 </div>
             @empty
                 <div class="mt-4 bg-blue-100 border border-blue-400 text-center text-blue-900 px-4 py-2 rounded relative" role="alert">
-                    <span class="block sm:inline">Aucune annonce créée aujourd'hui.</span>
+                    <span class="block sm:inline">Vous n'avez pas encore d'annonces</span>
                 </div>
             @endforelse
         </div>

@@ -64,6 +64,8 @@ class InformationController extends Controller
             $publication = Publication::find($information->pub_id);
             $publication->start_date = $request->input('start_date');
             $publication->end_date = $request->input('end_date');
+            $publication->Masked = true;
+            $publication->Validated = 0;
             $publication->save();
 
             $information->content = $request->input('content');

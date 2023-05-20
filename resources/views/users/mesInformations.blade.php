@@ -19,8 +19,8 @@
                 </div>
             </div>
         @empty
-            <div class="mt-4 bg-blue-100 border border-blue-400 text-center text-blue-900 px-4 py-2 rounded relative " role="alert">
-                <span class="block sm:inline">Aucune information créée aujourd'hui.</span>
+            <div class="mt-4 bg-blue-100 border border-blue-700 text-center text-blue-900 font-bold px-4 py-2 rounded relative " role="alert">
+                <span class="block sm:inline">Vous n'avez pas encore d'information</span>
             </div>
         @endforelse
     </div>

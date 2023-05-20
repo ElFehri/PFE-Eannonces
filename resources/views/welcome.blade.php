@@ -5,8 +5,17 @@
       background: linear-gradient(90deg, #14345b 0%, #1f7b66 100%);
     }
   </style>
-
+    
     <div class="pt-24 text-white" style="font-family: 'Source Sans Pro', sans-serif;">
+
+      {{-- session message --}}    
+      @if(Session::has('message'))
+        <div class="w-1/2 mx-auto">
+          <div class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded-lg text-center relative session-alert" role="alert">
+            <span class="block sm:inline">{{ Session::get('message') }}</span>
+          </div>
+        </div>
+      @endif  
       <div class=" px-3 mx-auto flex flex-wrap flex-col md:flex-row items-center">
         <!--Left Col-->
         <div class="flex flex-col w-full md:w-2/5 p-8 justify-start items-start  md:text-left">
@@ -52,8 +61,8 @@
         <div class="w-full mb-4">
           <div class="h-1 mx-auto gradient w-64 opacity-25 my-0 py-0 rounded-t"></div>
         </div>
-        <div class="flex flex-wrap">
-          <div class="w-5/6 sm:w-1/2 p-6">
+        <div class="flex flex-row">
+          <div class="w-1/2 p-6">
             <h3 class="text-3xl text-gray-800 font-bold leading-none mb-3">
               Système authentifié.
             </h3>
@@ -63,11 +72,11 @@
               <br />
             </p>
           </div>
-          <div class="w-full sm:w-1/4 2xl:w-1/2 ml-24">
+          <div class="w-1/2 ml-24">
             <img src="{{asset('/images/OIP.png')}}" alt="">
           </div>
         </div>
-        <div class="flex flex-wrap flex-col-reverse sm:flex-row">
+        <div class="flex flex-row">
           <div class="w-full sm:w-1/3 2xl:w-1/2 mr-24">
             <img src="{{asset('/images/R.png')}}" alt="" >
           </div>
@@ -238,5 +247,7 @@
         </div>
       </div>
     </footer>
+
+<script src="{{asset('/js/messageTimeSet.js')}}"></script>
 
   @endsection

@@ -18,7 +18,7 @@ class RegisterController extends Controller
 
     
     
-    protected $redirectTo = 'home/dashboard';
+    protected $redirectTo = '/';
     public function __construct()
     {
         $this->middleware('guest');
@@ -45,7 +45,7 @@ class RegisterController extends Controller
             'password' => Hash::make($data['password']),
             'CIN' => $data['CIN'],
             'role'=> $data['role'],
-            'authorized' => true,
+            'authorized' => false,
         ]);
     }
 }

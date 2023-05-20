@@ -19,7 +19,7 @@ return new class extends Migration
             $table->string('password');
             $table->string('CIN', 10)->unique();
             $table->string('role')->default('Member')/* ->enum(['Member', 'Admin', 'Responsable']) */;
-            $table->boolean('authorized')->default(true);
+            $table->boolean('authorized');
             $table->rememberToken();
             $table->timestamps();
         });

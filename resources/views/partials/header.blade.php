@@ -11,7 +11,7 @@
                 {{ Auth::user()->name }}
             </a>
             <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
-                <a class="dropdown-item" href="#" >
+                <a class="dropdown-item" href="{{route('profile')}}" >
                     Mon profile
                 </a>
                 <a class="dropdown-item" href="{{route('mesAnnonces')}}" >

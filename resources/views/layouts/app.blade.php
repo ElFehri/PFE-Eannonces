@@ -38,8 +38,8 @@ $role = Auth::user()->role;
         <div class="flex flex-row bg-gray-100 text-gray-700">
             <div class="flex flex-col h-screen w-2/12 bg-white py-6 overflow-hidden">
                 @include('partials.sidebar')
-              </div>
-            <main class="main w-10/12 bg-gray-200   p-3 ">
+            </div>
+            <main class="main w-10/12 bg-gray-100 p-3">
                 @yield('content')
             </main>
             

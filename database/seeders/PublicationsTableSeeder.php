@@ -4,19 +4,17 @@ namespace Database\Seeders;
 
 use App\Models\Annonce;
 use App\Models\Information;
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
-use Illuminate\Database\Seeder;
 use App\Models\Publication;
 use App\Models\User;
 use Faker\Factory as Faker;
-
+use Illuminate\Database\Seeder;
 
 class PublicationsTableSeeder extends Seeder
 {
     /**
      * Run the database seeds.
      */
-    public function run(): void
+    public function run()
     {
         $faker = Faker::create();
 
@@ -24,10 +22,19 @@ class PublicationsTableSeeder extends Seeder
 
         foreach ($users as $user) {
             for ($i = 0; $i < 3; $i++) {
+                $validated = $faker->randomElement([-1, 0, 1]); //[-1: rejected, 0: In review, 1: validated]
+                if ($validated == 0 || $validated == -1) {
+                    $masked = true;
+                }
+                else{
+                    $masked = false;
+                }
                 $publication = Publication::create([
                     'start_date' => $faker->dateTimeBetween('-1 week', '+1 week'),
                     'end_date' => $faker->dateTimeBetween('+1 week', '+3 weeks'),
                     'user_id' => $user->id,
+                    'Masked' => $masked,
+                    'Validated' => $validated,
                 ]);
 
                 if ($faker->boolean(50)) {
@@ -45,5 +52,4 @@ class PublicationsTableSeeder extends Seeder
             }
         }
     }
-
 }
