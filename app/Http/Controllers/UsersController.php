@@ -2,9 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Publication;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 
 class UsersController extends Controller
@@ -128,4 +130,55 @@ class UsersController extends Controller
         // Passer les tableaux d'annonces et d'informations à la vue
         return view('users.mesInformations', compact('informations'));
     }
+
+    //user notifications
+    public function announcesStatus()
+    {
+        $user = Auth::user();
+        $announcements = DB::table('annonces')
+                ->join('publications', 'annonces.pub_id', '=', 'publications.id')
+                ->where('publications.created_at', '>=', now()->subDays(3))
+                ->where('publications.user_id', '=', $user->id)
+                ->get(['annonces.id','pub_id', 'title', 'content', 'Validated', 'Masked']);
+            
+
+        $validated = []; $rejected = []; $inReview = [];
+
+        foreach ($announcements as $announce) {
+            if ($announce->Validated === 1) {
+                $validated[] = $announce;
+            }elseif ($announce->Validated === -1) {
+                $rejected[] = $announce;
+            }else{
+                $inReview[] = $announce;
+            }
+        }
+        return view('users.announcesStatus', compact('validated','rejected', 'inReview'));
+    }
+    public function informationStatus()
+    {
+        $user = Auth::user();
+
+        $information = DB::table('information')
+                ->join('publications', 'information.pub_id', '=', 'publications.id')
+                ->where('publications.created_at', '>=', now()->subDays(3))
+                ->where('publications.user_id', '=', $user->id)
+                ->get(['information.id','pub_id','content', 'Validated', 'Masked']);
+        $validated = []; $rejected = []; $inReview = [];
+
+        foreach ($information as $info) {
+            if ($info->Validated === 1) {
+                $validated[] = $info;
+            }
+            if ($info->Validated === -1) {
+                $rejected[] = $info;
+            }
+            if ($info->Validated === 0) {
+                $inReview[] = $info;
+            }
+        }    
+        
+        return view('users.informationStatus', compact('validated','rejected', 'inReview'));
+    }
+
 }

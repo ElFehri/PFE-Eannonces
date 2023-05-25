@@ -2,7 +2,7 @@
 
 @section('information')
 <div class="mt-8 bg-white pb-4 rounded-lg">
-    <h3 class="font-semibold py-2 mb-8 text-center bg-red-900 text-white rounded-md">Nouveaux informations</h3>
+    <h3 class="font-semibold py-2 mb-8 text-center bg-red-900 text-white rounded-t-md">Nouveaux informations</h3>
     @if (count($newInformations) > 0)
         <ul class="list-disc list-inside">
             @foreach ($newInformations as $information)

@@ -21,10 +21,17 @@ class AnnonceController extends Controller
     {
         try {
             $user = Auth::user();
+            $start_date = $request->input('start_date');
+            $end_date = $request->input('end_date');
+
+            if ($start_date >= $end_date) {
+                return redirect()->back()->with(['error' => 'La date de debut doit etre inferieur a la date de fin!']);
+            }
+
             $publication = new Publication;
             $publication->user_id = $user->id;
-            $publication->start_date = $request->input('start_date');
-            $publication->end_date = $request->input('end_date');
+            $publication->start_date = $start_date;
+            $publication->end_date = $end_date;
             $publication->Masked = true;
             $publication->Validated = 0;
             $publication->save();
@@ -37,9 +44,10 @@ class AnnonceController extends Controller
 
             return redirect()->back()->with(['message' => 'Annonce créée avec succès.']);
         } catch (Error $e) {
-            return redirect()->back()->with(['error' => $e ]);
+            return redirect()->back()->with(['error' => $e]);
         }
     }
+
 
 
     public function show($id)
@@ -64,6 +72,13 @@ class AnnonceController extends Controller
     public function update(Request $request, Annonce $annonce)
     {
         try{
+            $start_date = $request->input('start_date');
+            $end_date = $request->input('end_date');
+
+            if ($start_date >= $end_date) {
+                return redirect()->back()->with(['error' => 'La date de debut doit etre inferieur a la date de fin!']);
+            }
+            
             $publication = Publication::find($annonce->pub_id);
             $publication->start_date = $request->input('start_date');
             $publication->end_date = $request->input('end_date');

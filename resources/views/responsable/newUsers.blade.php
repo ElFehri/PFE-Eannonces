@@ -2,7 +2,7 @@
 
 @section('users')
     <div class="mt-8 bg-white  pb-4 rounded-lg">
-        <h3 class="font-semibold py-2 mb-8 text-center bg-blue-900 text-white rounded-md">Nouveaux utilisateurs</h3>
+        <h3 class="font-semibold py-2 mb-8 text-center bg-blue-900 text-white rounded-t-md">Nouveaux utilisateurs</h3>
 
         <div class="grid grid-cols-2 gap-4">
             @forelse($newUsers as $user)

@@ -2,7 +2,6 @@
 
 use App\Http\Controllers\AnnonceController;
 use App\Http\Controllers\InformationController;
-use App\Http\Controllers\DashPublications;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\PublicationController;
@@ -41,6 +40,9 @@ Route::group(['prefix'=> 'home', 'middleware'=>'auth'], function(){
     Route::get('/new/information', [ResponsableController::class,'newInformations'])->name('newInformations');
     Route::get('/publication/valide/{id}', [PublicationController::class, 'validatePublication'])->name('publication.valide');
     Route::get('/publication/reject/{id}', [PublicationController::class, 'rejectPublication'])->name('publication.reject');
+    Route::get('/publication/masked/{id}', [PublicationController::class, 'mask'])->name('publication.mask');
+    Route::get('/publication/unmasked/{id}', [PublicationController::class, 'unmask'])->name('publication.unmask');
+
 
     Route::get('/new/users', [ResponsableController::class,'newUsers'])->name('newUsers');
     Route::get('/responsable/validate/{user}', [ResponsableController::class, 'validateUser'])->name('responsable.validate');
@@ -50,7 +52,6 @@ Route::group(['prefix'=> 'home', 'middleware'=>'auth'], function(){
     
 
     //users-list, profile, user-profile, screen
-    Route::get('/screen', [DashPublications::class, 'screen'])->name('ecran');
 
     Route::get('/users/list', [UsersController::class, 'usersList'])->name('usersList');
 
@@ -68,8 +69,13 @@ Route::group(['prefix'=> 'home', 'middleware'=>'auth'], function(){
 
     Route::post('/store/user', [UsersController::class, 'storeUser'])->name('storeUser');
 
+    Route::get('/user/announcements', [UsersController::class, 'announcesStatus'])->name('announcesStatus');
+    Route::get('/user/information', [UsersController::class, 'informationStatus'])->name('informationStatus');
+
+
 });
 
+Route::get('/screen', [PublicationController::class, 'screen'])->name('ecran');
 
 
 Route::get('/', function () {

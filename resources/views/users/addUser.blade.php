@@ -1,8 +1,8 @@
 @extends('layouts.app')
 
 @section('content')
-    <div class="bg-white mt-8 px-16 py-2 rounded-lg w-2/3 mx-auto">
-        <h2 class="text-2xl text-center font-bold mt-2 mb-2">Add User</h2>
+    <div class="bg-white mt-8 px-16 py-2 rounded-lg w-3/4 mx-auto">
+        <h2 class="text-2xl text-center font-bold mt-2 mb-2">Ajouter utilisateur</h2>
         <hr>
         {{-- affichage des messages --}}
         <div class="text-center">
@@ -19,18 +19,18 @@
         </div>
         <form action="{{ route('storeUser') }}" method="POST">
             @csrf
-            <div class="mb-2 mt-4">
-                <label for="name" class="block font-bold mb-2 text-lg">Name</label>
+            <div class="my-4">
+                <label for="name" class="block font-bold mb-2 text-lg">Nom & prenom</label>
                 <input type="text" name="name" placeholder="Nom & Prenom" value="{{old('name')}}" required class="w-full form-control px-4 py-2 border border-gray-300 rounded-md">
             </div>
-            <div class="mb-2">
+            <div class="mb-4">
                 <label for="email" class="block font-bold mb-2 text-lg">Email</label>
                 <input type="email" name="email" placeholder="exemple123@gmail.com" value="{{old('email')}}" required class="w-full form-control px-4 py-2 border border-gray-300 rounded-md">
                 @error('email')
                     <p class="text-red-500 mt-1">{{ $message }}</p>
                 @enderror
             </div>
-            <div class="mb-2">
+            <div class="mb-4">
                 <label for="CIN" class="block font-bold mb-2 text-lg">CIN</label>
                 <input type="text" name="CIN" placeholder="CIN" value="{{old('CIN')}}" required class="w-full form-control px-4 py-2 border border-gray-300 rounded-md">
                 @error('CIN')
@@ -47,9 +47,9 @@
             </div>
             <div class="flex flex-row justify-between mb-2">
                 <a href="{{route('home')}}" class="px-4 py-2 bg-gray-500 hover:bg-gray-600 text-white font-bold rounded-md no-underline">
-                    Cancel
+                    Retourner
                 </a>
-                <button type="submit" class="px-4 py-2 bg-blue-500 hover:bg-blue-600 text-white font-bold rounded-md">Create</button>
+                <button type="submit" class="px-4 py-2 bg-blue-500 hover:bg-blue-600 text-white font-bold rounded-md">Creer</button>
             </div>
         </form>
     </div>

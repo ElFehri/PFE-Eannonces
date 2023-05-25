@@ -5,9 +5,9 @@
 
 <div class="flex flex-col items-center justify-center mt-8 ">
     <div class="w-3/4">
-        <form method="POST" action="{{ route('information.store') }}" class="bg-white shadow-lg rounded px-8 pt-6 pb-8 mb-4">
+        <form method="POST" action="{{ route('information.store') }}" class="bg-white shadow-lg rounded px-16 pt-6 pb-8 mb-4">
             @csrf
-			<h2 class="text-center font-bold text-3xl mb-3">Nouveau Information</h2>
+			<h2 class="text-center font-bold text-3xl mb-3">Nouveau Information</h2><hr>
             
             {{-- affichage des messages --}}
             <div class="text-center">
@@ -23,20 +23,20 @@
                 @endif
             </div>
 
-            <div class="mb-4">
-               <label class="block text-gray-700 font-bold mb-2" for="content">
+            <div class="my-4">
+               <label class="block text-gray-700 text-xl font-bold mb-2" for="content">
                 Description
                 </label>
                <textarea class="form-input rounded-md shadow-sm mt-1 block w-full pl-4 border-2 " id="content" name="content" rows="5" placeholder="Description"></textarea>
             </div>
             
             <div class="form-group text-gray-700 font-bold mb-2">
-              <label for="start_date">Date et heure de début:</label>
+              <label class="block text-gray-700 text-xl font-bold mb-2" for="start_date">Date et heure de début:</label>
               <input type="datetime-local" class="form-control" id="start_date" name="start_date"  required>
             </div>
           
             <div class="form-group text-gray-700 font-bold mb-2">
-              <label for="end_date">Date et heure de fin:</label>
+              <label class="block text-gray-700 text-xl font-bold mb-2" for="end_date">Date et heure de fin:</label>
               <input type="datetime-local" class="form-control" id="end_date" name="end_date"  required>
             </div>
             <div class="flex items-center justify-between mt-4 ">

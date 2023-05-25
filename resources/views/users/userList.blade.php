@@ -5,7 +5,7 @@
     
         <div>
             <h2 class="text-2xl font-bold mb-2">Responsables</h2>
-            <div class="grid grid-cols-3 gap-4">
+            <div class="grid grid-cols-3 gap-4  ">
             @foreach ($responsables as $user)
                 <div class="bg-white rounded-lg shadow-md px-4 py-2">
                     <h3 class="text-center font-sans">{{ $user->name }}</h3>
@@ -96,8 +96,7 @@
                     </div>
                     <div class="mt-4 text-center">
                         <a href="{{ route('userProfile', ['id' => $user->id]) }}"
-                           class="no-underline bg-blue-500 hover:bg-blue-600 text-white font-bold py-1 px-2 rounded"><i
-                                class="fas fa-user fa-lg mr-1"></i>Voir Profile</a>
+                           class="no-underline bg-blue-500 hover:bg-blue-600 text-white font-bold py-1 px-2 rounded"><i class="fas fa-user fa-lg mr-1"></i>Voir Profile</a>
                     </div>
                 </div>
             @endforeach

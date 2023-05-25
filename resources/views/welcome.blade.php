@@ -61,26 +61,26 @@
         <div class="w-full mb-4">
           <div class="h-1 mx-auto gradient w-64 opacity-25 my-0 py-0 rounded-t"></div>
         </div>
-        <div class="flex flex-row">
+        <div class="flex flex-row mt-16">
           <div class="w-1/2 p-6">
             <h3 class="text-3xl text-gray-800 font-bold leading-none mb-3">
               Système authentifié.
             </h3>
-            <p class="text-gray-600 mb-8">
+            <p class="text-gray-600 my-16">
               Nous accordons la priorité à la confidentialité et à la sécurité des utilisateurs, et offre l'intégrité et de la confidentialité du système de gestion des publications.
               <br />
               <br />
             </p>
           </div>
-          <div class="w-1/2 ml-24">
-            <img src="{{asset('/images/OIP.png')}}" alt="">
+          <div class="w-full sm:w-1/3 2xl:w-1/2 ml-24">
+            <img src="{{asset('/images/auth.png')}}" alt="" class="h-56">
           </div>
         </div>
-        <div class="flex flex-row">
-          <div class="w-full sm:w-1/3 2xl:w-1/2 mr-24">
+        <div class="flex flex-row mt-16">
+          <div class="w-full sm:w-1/3 2xl:w-1/2 mr-12">
             <img src="{{asset('/images/R.png')}}" alt="" >
           </div>
-          <div class="w-full sm:w-1/2 p-6 mt-6">
+          <div class="w-full sm:w-1/2 p-6 my-16">
             <div class="align-middle">
               <h3 class="text-3xl text-gray-800 font-bold leading-none mb-3">
                 Simplification de la gestion des publications
@@ -105,7 +105,7 @@
           <div class="h-1 mx-auto gradient w-64 opacity-25 my-0 py-0 rounded-t"></div>
         </div>
         <div class="w-full md:w-1/3 p-6 flex flex-col flex-grow flex-shrink">
-          <div class="flex-1 rounded-md overflow-hidden shadow-2xl shadow-black p-4">
+          <div class="flex-1 rounded-md overflow-hidden shadow-lg shadow-black p-4">
               
               <div class="w-full font-bold text-xl text-gray-800 px-6 mb-6">
                 Creation des publications (annonce)
@@ -118,7 +118,7 @@
           
         </div>
         <div class="w-full md:w-1/3 p-6 flex flex-col flex-grow flex-shrink">
-          <div class="flex-1 rounded-md overflow-hidden shadow-2xl shadow-black p-4">
+          <div class="flex-1 rounded-md overflow-hidden shadow-lg shadow-black p-4">
               
               <div class="w-full font-bold text-xl text-gray-800 px-6 mb-6">
                 Creation des publications simple (information)
@@ -129,7 +129,7 @@
           </div>
         </div>
         <div class="w-full md:w-1/3 p-6 flex flex-col flex-grow flex-shrink">
-          <div class="flex-1 rounded-md overflow-hidden shadow-2xl shadow-black p-4">
+          <div class="flex-1 rounded-md overflow-hidden shadow-lg shadow-black p-4">
               
               <div class="w-full font-bold text-xl text-gray-800 px-6 mb-6">
                 Distrubition des publications.
@@ -175,11 +175,19 @@
       <h3 class="my-4 text-2xl text-white leading-tight">
         et commencez votre profile
       </h3>
+      @guest
       <a href="{{route('register')}}" class="no-underline">
-        <button class="mx-auto lg:mx-0 hover:underline bg-white text-gray-800 font-bold rounded-full my-6 py-4 px-8 shadow-lg focus:outline-none focus:shadow-outline transform transition hover:scale-105 duration-300 ease-in-out">
+        <button class="mx-auto lg:mx-0 hover:font-sans bg-white text-gray-800 font-bold rounded-full my-6 py-2 px-4 shadow-lg focus:outline-none focus:shadow-outline transform transition hover:scale-105 duration-300 ease-in-out">
             S'inscrire!
           </button>  
       </a>
+      @else
+      <a href="{{route('home')}}" class="no-underline">
+        <button class="mx-auto lg:mx-0 hover:font-sans bg-white text-gray-800 font-bold rounded-full my-6 py-2 px-4 shadow-lg focus:outline-none focus:shadow-outline transform transition hover:scale-105 duration-300 ease-in-out">
+            Dashboard
+          </button>  
+      </a>
+      @endguest
     </section>
 
     <!--Footer-->

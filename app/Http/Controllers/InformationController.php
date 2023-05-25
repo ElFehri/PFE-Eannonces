@@ -23,6 +23,12 @@ class InformationController extends Controller
     {
         try {
             $user = Auth::user();
+            $start_date = $request->input('start_date');
+            $end_date = $request->input('end_date');
+
+            if ($start_date >= $end_date) {
+                return redirect()->back()->with(['error' => 'La date de debut doit etre inferieur a la date de fin!']);
+            }
             $publication = new Publication;
             $publication->user_id = $user->id;
             $publication->start_date = $request->input('start_date');
@@ -61,6 +67,12 @@ class InformationController extends Controller
     public function update(Request $request, Information $information)
     {
         try{
+            $start_date = $request->input('start_date');
+            $end_date = $request->input('end_date');
+
+            if ($start_date >= $end_date) {
+                return redirect()->back()->with(['error' => 'La date de debut doit etre inferieur a la date de fin!']);
+            }
             $publication = Publication::find($information->pub_id);
             $publication->start_date = $request->input('start_date');
             $publication->end_date = $request->input('end_date');

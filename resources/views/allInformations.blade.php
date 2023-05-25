@@ -2,17 +2,22 @@
 
 @section('content')
     <div class="container">
-        <h1 class="text-4xl font-bold mb-4">All Informations</h1>
+        <h1 class="text-3xl font-bold mb-4">All Informations</h1>
+        <hr>
 
-        <div class="grid grid-cols-1 gap-4">
+        <div class="grid lg:grid-cols-2 gap-4 sm:grid-cols-1">
             @foreach ($informations as $information)
-                <div class="bg-white p-4 shadow-lg rounded-lg">
+                <div class="bg-white px-4 py-2 shadow-lg rounded-lg">
                     <p class="text-xl bg-gray-100 rounded-md py-2 px-6">{{ $information->content }}</p>
-                    <div class="mt-2 px-16 flex justify-between items-center">
-                        <span class="text-sm text-gray-500">Created by: {{ $information->publication->user->name }}</span>
-                        <span class="text-sm text-gray-500">Created at: {{ $information->created_at->format('Y-m-d H:i:s') }}</span>
-                        <a href="{{ route('information.show', $information->id) }}" class="bg-blue-500 hover:bg-blue-600 text-white font-bold py-1 px-2 rounded">Show</a>
-                    </div>
+                    <div class="mt-4 px-8 flex justify-between items-center">
+                        <div>
+                         <p class="text-md text-gray-700"><b>Créée par:</b> {{ $information->publication->user->name }}</p>
+                         <p class="text-md text-gray-700"><b>Créée le:</b> {{ $information->created_at->format('Y-m-d H:i:s') }}</p>
+                        </div>
+                         <a href="{{ route('information.show', $information->id) }}" class="no-underline bg-blue-500 hover:bg-blue-600 text-white text-center font-bold py-1 px-2 rounded">
+                             <i class="fas fa-eye fa-lg mr-1"></i> Voir
+                         </a>
+                     </div>
                 </div>
             @endforeach
 

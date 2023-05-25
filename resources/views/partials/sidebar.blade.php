@@ -19,6 +19,15 @@
       <span class="text-lg font-medium"><i class="fa fa-plus pr-0 md:pr-3"></i> Information</span>
     </a>
   </li>
+
+  @if ($role === "Member" || $role === "Admin")
+  <li class="rounded-lg hover:bg-green-100">
+    <a href="{{ route('announcesStatus')}}" class="flex flex-row items-center h-12  no-underline transform hover:translate-x-2 transition-transform ease-in duration-200 text-gray-700 hover:text-black">
+      <span class="text-lg font-medium"><i class="fa fa-bell pr-0 md:pr-3"></i> Notifications</span>
+    </a>
+  </li>
+  @endif
+
   @if ($role == "Admin")
   <li class="rounded-lg hover:bg-gray-100">
     <a href="{{ route('allAnnonces')}}" class="flex flex-row items-center h-12  no-underline transform hover:translate-x-2 transition-transform ease-in duration-200 text-gray-700 hover:text-black">
@@ -52,8 +61,8 @@
   <li class="rounded-lg hover:bg-green-100">
     <a href="{{route('newAnnonces')}}" class="flex flex-row items-center h-12  no-underline transform hover:translate-x-2 transition-transform ease-in duration-200 text-gray-700 hover:text-black">
       <span class="text-lg font-medium"><i class="fa fa-bell pr-0 md:pr-3"></i> Notifications</span>
-      <span class="ml-2 text-lg bg-red-100 rounded-full px-2 py-px text-red-500">5</span>
-    </a>
+{{--       <span class="ml-2 text-lg bg-red-100 rounded-full px-2 py-px text-red-500">5</span>
+ --}}    </a>
   </li>
   
     <li class="rounded-lg hover:bg-gray-100">

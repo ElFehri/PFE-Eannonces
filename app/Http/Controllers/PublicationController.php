@@ -7,25 +7,34 @@ use App\Models\User;
 use Carbon\Carbon;
 use Error;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class PublicationController extends Controller
 {
     public function mask($id)
     {
-        $publication = Publication::findOrFail($id);
-        $publication->Masked = true;
-        $publication->save();
-
-        return view('users.notifications');
+        try {
+            $publication = Publication::findOrFail($id);
+            $publication->Masked = true;
+            $publication->save();
+    
+            return redirect()->back()->with('message','La publication a été masquée avec succès.');
+        } catch (Error $e) {
+            return redirect()->back()->with('error', $e);
+        }
     }
 
     public function unmask($id)
     {
-        $publication = Publication::findOrFail($id);
-        $publication->Masked = false;
-        $publication->save();
-
-        return view('users.notifications');
+        try {
+            $publication = Publication::findOrFail($id);
+            $publication->Masked = false;
+            $publication->save();
+    
+            return redirect()->back()->with('message','La publication a été démasquée avec succès.');
+        } catch (Error $e) {
+            return redirect()->back()->with('error', $e);
+        };
     }
 
     public function validatePublication($id)
@@ -56,6 +65,28 @@ class PublicationController extends Controller
     }
 
 
+    //la sortie de a l'ecran
+    public function screen()
+    {
+        $annonces = DB::table('annonces')
+            ->join('publications', 'annonces.pub_id', '=', 'publications.id')
+            ->where('publications.start_date', '<=', now())
+            ->where('publications.end_date', '>=', now())
+            ->where('Validated', '=', 1)
+            ->where('Masked', '=', false)
+            ->select(['title', 'content'])
+            ->get();
+    
+        $information = DB::table('information')
+            ->join('publications', 'information.pub_id', '=', 'publications.id')
+            ->where('publications.start_date', '<=', now())
+            ->where('publications.end_date', '>=', now())
+            ->where('Validated', '=', 1)
+            ->where('Masked', '=', false)
+            ->get(['content']);
+       
+        return view('screen', compact('annonces','information'));
+    }
 
 
 }
