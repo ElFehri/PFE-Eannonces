@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Publication;
 use App\Models\User;
 use Carbon\Carbon;
-use Error;
+use Exception;
 use Illuminate\Http\Request;
 
 class ResponsableController extends Controller
@@ -53,8 +53,8 @@ class ResponsableController extends Controller
             $user->save();
 
             return redirect()->back()->with('message', 'Le compte utilisateur a été validé avec succès.');
-        } catch (Error $e) {
-            return redirect()->back()->with('error', $e);
+        } catch (Exception $e) {
+            return redirect()->back()->with('Exception', $e->getMessage());
         }
     }
 
@@ -63,9 +63,9 @@ class ResponsableController extends Controller
         try {
             $user->delete();
 
-            return redirect()->back()->with('error', 'Le compte utilisateur a été rejeté et supprimé avec succès.');
-        } catch (Error $e) {
-            return redirect()->back()->with('error', $e);
+            return redirect()->back()->with('Exception', 'Le compte utilisateur a été rejeté et supprimé avec succès.');
+        } catch (Exception $e) {
+            return redirect()->back()->with('Exception', $e->getMessage());
         }
     }
 }

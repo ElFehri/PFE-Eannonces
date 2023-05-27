@@ -5,7 +5,6 @@ namespace Illuminate\Foundation\Auth;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\ValidationException;
 
 trait AuthenticatesUsers
@@ -71,13 +70,10 @@ trait AuthenticatesUsers
     protected function validateLogin(Request $request)
     {
         $request->validate([
-            $this->username() => 'required|string|email',
+            $this->username() => 'required|string',
             'password' => 'required|string',
-            'role' => 'required|in:Member,Admin,Responsable',
-            'CIN' => 'required|string|max:10',
         ]);
     }
-
 
     /**
      * Attempt to log the user into the application.
@@ -100,9 +96,8 @@ trait AuthenticatesUsers
      */
     protected function credentials(Request $request)
     {
-        return $request->only($this->username(), 'password', 'CIN', 'role');
+        return $request->only($this->username(), 'password');
     }
-
 
     /**
      * Send the response after the user was authenticated.
@@ -132,16 +127,11 @@ trait AuthenticatesUsers
      * @param  mixed  $user
      * @return mixed
      */
-   
     protected function authenticated(Request $request, $user)
     {
-        if (!$user->authorized) {
-            auth()->logout();
-            return redirect()->route('login')->with('unauthorized', 'You do not have permission to access this application.');
-        }
-
-        return redirect()->intended($this->redirectPath());
+        //
     }
+
     /**
      * Get the failed login response instance.
      *
@@ -152,57 +142,10 @@ trait AuthenticatesUsers
      */
     protected function sendFailedLoginResponse(Request $request)
     {
-        $errors = [];
-
-        if ($request->filled($this->username())) {
-            // Check if the username exists in the database
-            $username = $request->input($this->username());
-            $user = User::where($this->username(), $username)->first();
-            
-            if (!$user) {
-                $errors[$this->username()] = "Email non trouvee ou incorrect!";
-                return redirect()->route('login')
-                        ->withErrors($errors)
-                        ->withInput($request->only($this->username()));
-            } 
-            else {
-                        // Check if the filled password matches the hashed password
-                        $filledPassword = $request->input('password');
-                        if (!Hash::check($filledPassword, $user->password)) {
-                            $errors['password'] = "Mot de passe est incorrect!";
-                        }
-
-                        
-                        // Check if the filled role matches the user role
-                        $filledRole = $request->input('role');
-                        if ($filledRole !== $user->role) {
-                            $errors['role'] = "Le role choise est incorrect!";
-                        }
-                        
-        
-                        // Check if the filled CIN matches the user's CIN
-                        $filledCIN = $request->input('CIN');
-                
-                        if ($filledCIN !== $user->CIN) {
-                            $errors['CIN'] = "CIN non trouvee ou incorrect!";
-                        }
-
-                    return redirect()->route('login')
-                        ->withErrors($errors)
-                        ->withInput($request->only('role', 'password', 'CIN'));
-            }
-        }
-        else {
-            $errors[$this->username()] = "The $this->username() field is required!";
-            return redirect()->route('login')
-                ->withErrors($errors)
-                ->withInput($request->only($this->username()));
-        }
-        
+        throw ValidationException::withMessages([
+            $this->username() => [trans('auth.failed')],
+        ]);
     }
-
-
-
 
     /**
      * Get the login username to be used by the controller.

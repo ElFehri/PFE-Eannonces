@@ -2,25 +2,26 @@
 
 namespace App\Http\Controllers;
 
+use App\Events\MaskPublication;
 use App\Models\Publication;
-use App\Models\User;
-use Carbon\Carbon;
 use Error;
-use Illuminate\Http\Request;
+use Exception;
 use Illuminate\Support\Facades\DB;
 
 class PublicationController extends Controller
 {
+
     public function mask($id)
     {
         try {
             $publication = Publication::findOrFail($id);
             $publication->Masked = true;
             $publication->save();
-    
-            return redirect()->back()->with('message','La publication a été masquée avec succès.');
-        } catch (Error $e) {
-            return redirect()->back()->with('error', $e);
+
+
+            return redirect()->back()->with('message', 'La publication a été masquée avec succès.');
+        } catch (Exception $e) {
+            return redirect()->back()->with('error', $e->getMessage());
         }
     }
 
@@ -30,11 +31,12 @@ class PublicationController extends Controller
             $publication = Publication::findOrFail($id);
             $publication->Masked = false;
             $publication->save();
-    
-            return redirect()->back()->with('message','La publication a été démasquée avec succès.');
-        } catch (Error $e) {
-            return redirect()->back()->with('error', $e);
-        };
+
+
+            return redirect()->back()->with('message', 'La publication a été démasquée avec succès.');
+        } catch (Exception $e) {
+            return redirect()->back()->with('error', $e->getMessage());
+        }
     }
 
     public function validatePublication($id)
@@ -44,12 +46,15 @@ class PublicationController extends Controller
             $publication->Validated = 1;
             $publication->Masked = false;
             $publication->save();
-    
-            return redirect()->back()->with('message','La publication a été validé avec succès.');
-        } catch (Error $e) {
-            return redirect()->back()->with('error', $e);
+
+            
+            
+            return redirect()->back()->with('message', 'La publication a été validée avec succès.');
+        } catch (Exception $e) {
+            return redirect()->back()->with('error', $e->getMessage());
         }
     }
+
 
     public function rejectPublication($id)
     {

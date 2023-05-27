@@ -8,7 +8,6 @@
     <link rel="dns-prefetch" href="//fonts.gstatic.com">
     <link href="https://fonts.bunny.net/css?family=Nunito" rel="stylesheet">
 
-
     <!-- Scripts -->
     @vite(['resources/css/app.css', 'resources/sass/app.scss', 'resources/js/app.js'])
 </head>
@@ -47,11 +46,16 @@
             <img src="{{asset('/images/logo.png')}}" alt="FSM-UMI" class="h-16 w-full">
         </div>
         <div class="sm:w-3/4 lg:w-5/6 shadow-lg bg-white flex justify-center items-center">
-        @foreach ($information as $key => $info)
+        @forelse ($information as $key => $info)
             <p class="text-black my-2 info text-base font-bold" style="display: none;">{{ $info->content }}</p>
-        @endforeach
+        @empty
+        <p class="text-black my-2 info text-base font-bold" style="display: none;">FSM-UMI</p>
+        @endforelse
         </div>
     </footer>
+
+
+
 
 
     <!-- JavaScript code -->

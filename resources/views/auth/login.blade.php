@@ -16,8 +16,8 @@
                     </div>
                 @endif
 
-                <div class="px-16 py-6">
-                    <form method="POST" action="{{ route('login') }}">
+                <div class="px-16 py-8">
+                    <form method="POST" action="{{ route('login') }}" class="py-8">
                         @csrf
                 
                         <div class="mb-3">
@@ -31,37 +31,7 @@
                             @enderror
                         </div>
                 
-                        <div class="mb-3">
-                            <label for="CIN" class="block font-bold mb-2 text-lg">{{ __('CIN') }}</label>
-                            <input id="CIN" type="text" class="form-control @error('CIN') border-red-500 @enderror" name="CIN" value="{{ old('CIN') }}" required>
-                
-                            @error('CIN')
-                                @if ($errors->has('CIN'))
-                                    <span class="text-red-500 text-sm mt-2">{{ $errors->first('CIN') }}</span>
-                                @endif
-                            @enderror
-                        </div>
-                
-                        <div class="mb-3">
-                            <label class="block font-bold mb-1 text-lg" for="role">
-                                {{ __('Role') }}
-                            </label>
-                            <div>
-                                <select id="role" name="role" class="form-control">
-                                    <option value="Member" {{ old('role') == 'Member' ? 'selected' : '' }}>Membre</option>
-                                    <option value="Admin" {{ old('role') == 'Admin' ? 'selected' : '' }}>Admin</option>
-                                    <option value="Responsable" {{ old('role') == 'Responsable' ? 'selected' : '' }}>Responsable</option>
-                                </select>
-                            </div>
-                            @error('role')
-                                @if ($errors->has('role'))
-                                    <span class="text-red-500 text-sm mt-2">{{ $errors->first('role') }}</span>
-                                @endif
-                            @enderror
-                        </div>
-                        
-                
-                        <div class="mb-3">
+                        <div class="pt-6">
                             <label for="password" class="block font-bold mb-2 text-lg">{{ __('Mot de passe') }}</label>
                             <input id="password" type="password" class="form-control @error('password') border-red-500 @enderror" name="password" required autocomplete="current-password">
                 
@@ -72,14 +42,14 @@
                             @enderror
                         </div>
                 
-                        <div class="mb-6">
+                        <div class="pt-3">
                             <label class="inline-flex items-center">
                                 <input class="form-checkbox" type="checkbox" name="remember" id="remember" {{ old('remember') ? 'checked' : '' }}>
                                 <span class="ml-2">{{ __('Remember Me') }}</span>
                             </label>
                         </div>
                 
-                        <div class="flex items-center justify-between">
+                        <div class="flex items-center justify-between mt-12">
                             <button type="submit" class="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">
                                 {{ __('Login') }}
                             </button>

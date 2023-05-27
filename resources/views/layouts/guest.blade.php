@@ -47,14 +47,8 @@
                             <a class="dropdown-item" href="{{route('home')}}" >
                                 Dashboard
                             </a>
-                            <a class="dropdown-item" href="#" >
+                            <a class="dropdown-item" href="{{route('profile')}}" >
                                 Mon profile
-                            </a>
-                            <a class="dropdown-item" href="#" >
-                                Mes annonces
-                            </a>
-                            <a class="dropdown-item" href="#" >
-                                Mes informations
                             </a>
                             <a class="dropdown-item" href="{{ route('logout') }}"
                                 onclick="event.preventDefault();

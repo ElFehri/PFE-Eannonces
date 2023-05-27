@@ -48,7 +48,7 @@
 
     <div class="mt-8 bg-white pb-4 rounded-lg">
         <!-- Partie des informations -->
-        <h3 class="font-semibold py-2 mb-8 text-center bg-green-900 text-white rounded-t-lg">Toutes les annonces que vous avez créées aujourd'hui.</h3>
+        <h3 class="font-semibold py-2 mb-8 text-center bg-green-900 text-white rounded-t-lg">Toutes les informations que vous avez créées aujourd'hui.</h3>
         <div class="grid grid-cols-1 gap-4">
             @forelse ($informations as $information)
                 <div class="bg-white p-4 shadow-md border border-gray-300 m-2 rounded-lg">

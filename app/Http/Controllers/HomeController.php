@@ -26,14 +26,17 @@ class HomeController extends Controller
 
         foreach ($publications as $publication) {
             if ($publication->annonce) {
+                $publication->annonce->Masked = $publication->Masked;
                 $annonces[] = $publication->annonce;
             }
             if ($publication->information) {
+                $publication->information->Masked = $publication->Masked;
                 $informations[] = $publication->information;
             }
         }
         return view('home', compact('annonces', 'informations'));
     }
+
     public function allAnnonces()
     {
         $annonces = Annonce::with('publication.user')->get();

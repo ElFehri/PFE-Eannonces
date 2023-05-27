@@ -6,12 +6,8 @@ namespace App\Http\Controllers;
 use App\Models\Information;
 use App\Models\Publication;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
-
-use App\Models\User;
-use Error;
-use PhpParser\Node\Stmt\If_;
+use Exception;
 
 class InformationController extends Controller
 {
@@ -41,8 +37,8 @@ class InformationController extends Controller
             $information->save();
 
             return redirect()->back()->with(['message' => 'Information créée avec succès.']);
-        } catch (Error $e) {
-            return redirect()->back()->with(['error' => $e]);
+        } catch (Exception $e) {
+            return redirect()->back()->with(['error' => $e->getMessage()]);
         }
     }
 
@@ -66,16 +62,17 @@ class InformationController extends Controller
 
     public function update(Request $request, Information $information)
     {
-        try{
+        try {
             $start_date = $request->input('start_date');
             $end_date = $request->input('end_date');
 
             if ($start_date >= $end_date) {
-                return redirect()->back()->with(['error' => 'La date de debut doit etre inferieur a la date de fin!']);
+                return redirect()->back()->with(['error' => 'La date de début doit être inférieure à la date de fin!']);
             }
+            
             $publication = Publication::find($information->pub_id);
-            $publication->start_date = $request->input('start_date');
-            $publication->end_date = $request->input('end_date');
+            $publication->start_date = $start_date;
+            $publication->end_date = $end_date;
             $publication->Masked = true;
             $publication->Validated = 0;
             $publication->save();
@@ -83,9 +80,10 @@ class InformationController extends Controller
             $information->content = $request->input('content');
             $information->save();
 
+            
             return redirect()->route('home')->with(['message' => 'Information modifiée avec succès.']);
-        } catch (Error $e) {
-            return redirect()->back()->with(['error' => $e]);
+        } catch (\Exception $e) {
+            return redirect()->back()->with(['error' => $e->getMessage()]);
         }
     }
 
@@ -94,8 +92,8 @@ class InformationController extends Controller
         try {
             $information = Information::with('publication')->findOrFail($id)->deleteOrFail();        
             return redirect()->route('home')->with(['message'=>"L'information a été supprimée avec succès."]);
-        } catch (Error $e) {
-            return redirect()->route('home')->with(['error'=>$e]);
+        } catch (Exception $e) {
+            return redirect()->route('home')->with(['error'=>$e->getMessage()]);
         } 
     }
 }

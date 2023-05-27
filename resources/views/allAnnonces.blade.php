@@ -5,7 +5,7 @@
         <h1 class="text-3xl font-bold mb-4">All Announces</h1>
         <hr>
 
-        <div class="grid lg:grid-cols-2 gap-4 xl:grid-cols-3 sm:grid-cols-1">
+        <div class="grid sm:grid-cols-1 md:grid-cols-2 gap-4 xl:grid-cols-3 ">
             @foreach ($annonces as $annonce)
                 <div class="bg-white px-4 py-2 shadow-lg rounded-lg">
                     <h2 class="text-2xl text-center font-bold">{{ $annonce->title }}</h2>

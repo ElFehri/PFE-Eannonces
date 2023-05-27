@@ -5,10 +5,8 @@ namespace App\Http\Controllers;
 use App\Models\Annonce;
 use App\Models\Publication;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
-use App\Models\User;
-use Error;
+use Exception;
 
 class AnnonceController extends Controller
 {
@@ -25,7 +23,7 @@ class AnnonceController extends Controller
             $end_date = $request->input('end_date');
 
             if ($start_date >= $end_date) {
-                return redirect()->back()->with(['error' => 'La date de debut doit etre inferieur a la date de fin!']);
+                return redirect()->back()->with(['Exception' => 'La date de debut doit etre inferieur a la date de fin!']);
             }
 
             $publication = new Publication;
@@ -43,8 +41,8 @@ class AnnonceController extends Controller
             $annonce->save();
 
             return redirect()->back()->with(['message' => 'Annonce créée avec succès.']);
-        } catch (Error $e) {
-            return redirect()->back()->with(['error' => $e]);
+        } catch (Exception $e) {
+            return redirect()->back()->with(['Exception' => $e->getMessage()]);
         }
     }
 
@@ -71,14 +69,14 @@ class AnnonceController extends Controller
 
     public function update(Request $request, Annonce $annonce)
     {
-        try{
+        try {
             $start_date = $request->input('start_date');
             $end_date = $request->input('end_date');
 
             if ($start_date >= $end_date) {
-                return redirect()->back()->with(['error' => 'La date de debut doit etre inferieur a la date de fin!']);
+                return redirect()->back()->with(['Exception' => 'La date de debut doit etre inferieur a la date de fin!']);
             }
-            
+
             $publication = Publication::find($annonce->pub_id);
             $publication->start_date = $request->input('start_date');
             $publication->end_date = $request->input('end_date');
@@ -88,11 +86,13 @@ class AnnonceController extends Controller
             $annonce->title = $request->input('title');
             $annonce->save();
 
+
             return redirect()->route('home')->with(['message' => 'Annonce modifiée avec succès.']);
-        } catch (Error $e) {
-            return redirect()->back()->with(['error' => $e]);
+        } catch (Exception $e) {
+            return redirect()->back()->with(['Exception' => $e->getMessage()]);
         }
     }
+
 
     public function destroy($id)
     {
@@ -100,8 +100,8 @@ class AnnonceController extends Controller
             $annonce = Annonce::with('publication')->findOrFail($id)->deleteOrFail();
             return redirect()->route('home')->with(['message'=>"L'annonce a été supprimée avec succès."]); 
     
-        } catch (Error $e) {
-            return redirect()->route('home')->with(['error'=>$e]);
+        } catch (Exception $e) {
+            return redirect()->route('home')->with(['Exception'=>$e->getMessage()]);
         }
     }
 }
