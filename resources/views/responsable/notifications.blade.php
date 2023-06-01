@@ -1,5 +1,5 @@
 @extends('layouts.app')
-
+@section('title', "Notifications")
 @section('content')
 <div class="grid grid-cols-3 gap-4 mx-16">
     <a href="{{ route('newAnnonces') }}" class="text-center text-white font-bold no-underline">

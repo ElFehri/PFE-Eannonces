@@ -9,9 +9,15 @@
     <link href="https://fonts.bunny.net/css?family=Nunito" rel="stylesheet">
 
     <!-- Scripts -->
+    <script src="https://cdn.jsdelivr.net/npm/laravel-echo@^1.10.0/dist/echo.min.js"></script>
+    <script src="https://js.pusher.com/7.0/pusher.min.js"></script>
+
+
     @vite(['resources/css/app.css', 'resources/sass/app.scss', 'resources/js/app.js'])
 </head>
 <body class="h-screen overflow-hidden">
+    
+<div id="app">
     <div class="flex flex-wrap bg-white h-screen">
         <div class="sm:w-1/4 lg:w-1/6 shadow-lg">
             <div class="space-x-4 p-2 mb-8 flex flex-wrap">
@@ -30,31 +36,42 @@
         </div>
 
         <div class="sm:w-3/4 lg:w-5/6 h-full bg-gray-100">
-        @foreach ($annonces as $key => $annonce)
-            <div class="p-4 annonce m-1" style="display: none">
-                <h1 class="text-center font-bold text-3xl mt-4 pb-2 border-b border-gray-500">{{ $annonce->title }}</h1>
-                <div class="w-500 rounded-xl flex items-center justify-center">
-                    <p class="font-bold text-lg p-3 shadow-g">{{ $annonce->content }}</p>
+            @foreach ($annonces as $key => $annonce)
+                <div class="p-4 annonce m-1" style="display: none">
+                    <h1 class="text-center font-bold text-3xl mt-4 pb-2 border-b border-gray-500">{{ $annonce->title }}</h1>
+                    
+                    @if ($annonce->content)
+                        <div class="w-500 rounded-xl flex items-center justify-center">
+                            <p class="font-bold text-lg p-3 shadow-g">{{ $annonce->content }}</p>
+                        </div>
+                    @endif
+
+                    @if ($annonce->image)
+                        <div class="w-full rounded-xl flex items-center justify-center">
+                            <img src="{{ asset('storage/annoncesImages/' . $annonce->image) }}" alt="Annonce Image" class="w-full">
+                        </div>
+                    @endif
+                    
                 </div>
-            </div>
-        @endforeach
-        </div>
+            @endforeach
+        </div>        
     </div>
 
     <footer class="flex flex-row fixed left-0 bottom-0 w-full">
         <div class="sm:w-1/4 lg:w-1/6 bg-white">
             <img src="{{asset('/images/logo.png')}}" alt="FSM-UMI" class="h-16 w-full">
         </div>
-        <div class="sm:w-3/4 lg:w-5/6 shadow-lg bg-white flex justify-center items-center">
-        @forelse ($information as $key => $info)
-            <p class="text-black my-2 info text-base font-bold" style="display: none;">{{ $info->content }}</p>
-        @empty
-        <p class="text-black my-2 info text-base font-bold" style="display: none;">FSM-UMI</p>
-        @endforelse
+        <div class="sm:w-3/4 lg:w-5/6 bg-white flex justify-center items-center">
+            @forelse ($information as $key => $info)
+                <p class="text-black my-2 info text-base font-bold" style="display: none;">{{ $info->content }}</p>
+            @empty
+            <p class="text-black my-2 info text-base font-bold" style="display: none;">FSM-UMI</p>
+            @endforelse
         </div>
     </footer>
 
 
+</div>
 
 
 

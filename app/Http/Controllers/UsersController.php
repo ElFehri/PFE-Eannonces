@@ -108,6 +108,7 @@ class UsersController extends Controller
         $annonces = [];
         foreach ($publications as $publication) {
             if ($publication->annonce) {
+                $publication->annonce->Masked = $publication->Masked;
                 $annonces[] = $publication->annonce;
             }
         }
@@ -139,7 +140,7 @@ class UsersController extends Controller
                 ->join('publications', 'annonces.pub_id', '=', 'publications.id')
                 ->where('publications.created_at', '>=', now()->subDays(3))
                 ->where('publications.user_id', '=', $user->id)
-                ->get(['annonces.id','pub_id', 'title', 'content', 'Validated', 'Masked']);
+                ->get(['annonces.id','pub_id', 'title', 'content', 'Validated', 'Masked', 'image']);
             
 
         $validated = []; $rejected = []; $inReview = [];

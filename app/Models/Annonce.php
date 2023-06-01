@@ -12,7 +12,9 @@ class Annonce extends Model
 
     protected $fillable = [
         'title',
-        'content'
+        'content',
+        'image',
+        'pub_id'
     ];
 
     public function publication()

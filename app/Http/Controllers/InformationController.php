@@ -29,6 +29,13 @@ class InformationController extends Controller
             $publication->user_id = $user->id;
             $publication->start_date = $request->input('start_date');
             $publication->end_date = $request->input('end_date');
+            if ($user->role === "Responsable") {
+                $publication->Masked = false;
+                $publication->Validated = 1;
+            } else {
+                $publication->Masked = true;
+                $publication->Validated = 0;
+            }
             $publication->save();
 
             $information = new Information;
@@ -45,7 +52,6 @@ class InformationController extends Controller
     public function show($id)
     {
         $information = Information::with('publication')->find($id);
-
         if (!$information) {
             abort(404); 
         }

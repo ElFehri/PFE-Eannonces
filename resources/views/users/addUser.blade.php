@@ -1,5 +1,5 @@
 @extends('layouts.app')
-
+@section('title', "Nouveau utilisateur")
 @section('content')
     <div class="bg-white mt-8 px-16 py-2 rounded-lg w-3/4 mx-auto">
         <h2 class="text-2xl text-center font-bold mt-2 mb-2">Ajouter utilisateur</h2>

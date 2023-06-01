@@ -1,5 +1,5 @@
 @extends('layouts.guest')
-
+@section('title', "Login")
 @section('welcome')
 <div class="my-12 lg:mt-24 ">
     <div class="flex justify-center">

@@ -1,5 +1,5 @@
 @extends('layouts.app')
-
+@section('title', "Toutes informations")
 @section('content')
     <div class="container">
         <h1 class="text-3xl font-bold mb-4">All Informations</h1>
@@ -20,12 +20,11 @@
                      </div>
                 </div>
             @endforeach
-
-            @if ($informations->isEmpty())
-                <div class="mt-4 bg-blue-100 border border-blue-400 text-center text-blue-900 px-4 py-2 rounded relative" role="alert">
-                    <span class="block sm:inline">No informations available.</span>
-                </div>
-            @endif
         </div>
+        @if ($informations->isEmpty())
+            <div class="mt-4 bg-blue-100 border border-blue-400 text-center text-blue-900 px-4 py-2 rounded relative" role="alert">
+                <span class="block sm:inline">No informations available.</span>
+            </div>
+        @endif
     </div>
 @endsection

@@ -1,5 +1,5 @@
 @extends('layouts.app')
-
+@section('title', "Mon profile")
 @section('content')
     <div class="text-center">
         @if (session('message'))

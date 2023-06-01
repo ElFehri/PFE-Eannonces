@@ -79,7 +79,7 @@ class PublicationController extends Controller
             ->where('publications.end_date', '>=', now())
             ->where('Validated', '=', 1)
             ->where('Masked', '=', false)
-            ->select(['title', 'content'])
+            ->select(['title', 'content','image'])
             ->get();
     
         $information = DB::table('information')

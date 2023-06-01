@@ -1,5 +1,5 @@
 @extends('responsable.notifications')
-
+@section('title', "Nouveaux annonces")
 @section('annonces')
 <div class="mt-8 bg-white pb-4 rounded-lg">
     <h3 class="font-semibold py-2 mb-8 text-center bg-green-900 text-white rounded-t-md">Nouveaux annonces</h3>

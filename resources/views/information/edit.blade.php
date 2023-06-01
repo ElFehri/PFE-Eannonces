@@ -1,5 +1,5 @@
 @extends('layouts.app')
-
+@section('title', "Editer information")
 @section('content')
 <div class="flex flex-col items-center justify-center mt-8">
     <div class="w-3/4">
@@ -10,7 +10,7 @@
                     <hr>
             <div class="my-4">
                 <label class="block text-gray-700 text-lg font-bold mb-2" for="content">
-                    Description
+                    Contenu
                 </label>
                 <textarea class="form-input rounded-md shadow-sm mt-1 block w-full pl-4 border-2 " id="content" name="content" rows="5" placeholder="Description">{{ $information->content }}</textarea>
             </div>
