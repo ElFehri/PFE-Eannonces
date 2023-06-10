@@ -16,52 +16,62 @@
     @vite(['resources/css/app.css', 'resources/sass/app.scss', 'resources/js/app.js'])
 </head>
 <body class="h-screen overflow-hidden">
-    
 <div id="app">
     <div class="flex flex-wrap bg-white h-screen">
         <div class="sm:w-1/4 lg:w-1/6 shadow-lg">
-            <div class="space-x-4 p-2 mb-8 flex flex-wrap">
-                <div>
-                    <h1 class="text-center text-7xl my-5">28 °C</h1>
+            <div class="space-x-4 p-2 mb-8 flex flex-col justify-between">
+                <div class="mb-12 pt-4">
+                    <h1 id="temperature" class="text-center text-7xl mt-5">..°C</h1>
                     <div class="text-sm tracking-wide flex items-center justify-center space-x-1 text-center">
                         <img src="{{asset('/images/localisation.png')}}" alt="Localisation" class="h-5">
-                        <span class="text-gray-600">Meknes, Maroc</span>
+                        <span id="location" class="text-gray-600">Meknes, Morocco</span>
                     </div>
                 </div>
-                <div class="mt-4 flex flex-col items-center justify-center">
-                    <h3 class="text-lg font-bold" id="date"></h3>
-                    <h1 class="text-4xl font-bold mt-4" id="time"></h1>
+                <div class="mt-12 flex flex-col items-center justify-center">
+                    <h3 class="text-lg font-bold" id="date">Loading...</h3>
+                    <h1 class="text-4xl font-bold mt-4" id="time">Loading...</h1>
                 </div>
             </div>
         </div>
 
-        <div class="sm:w-3/4 lg:w-5/6 h-full bg-gray-100">
+        <div class="sm:w-3/4 lg:w-5/6 bg-gray-100 max-h-screen " id="annonces-container">
             @foreach ($annonces as $key => $annonce)
-                <div class="p-4 annonce m-1" style="display: none">
-                    <h1 class="text-center font-bold text-3xl mt-4 pb-2 border-b border-gray-500">{{ $annonce->title }}</h1>
-                    
-                    @if ($annonce->content)
-                        <div class="w-500 rounded-xl flex items-center justify-center">
-                            <p class="font-bold text-lg p-3 shadow-g">{{ $annonce->content }}</p>
+                <div class="annonce m-1" style="display: none">
+                    @if ($annonce->content && !$annonce->image)
+                        <h1 class="p-4 text-center font-bold text-3xl mt-1 py-2 border-b border-gray-500">{{ $annonce->title }}</h1>
+                        <div class="w-full p-4 rounded-xl flex items-center justify-center">
+                            <p class="font-bold text-lg p-3 shadow-g">{!! $annonce->content !!}</p>
                         </div>
-                    @endif
-
-                    @if ($annonce->image)
-                        <div class="w-full rounded-xl flex items-center justify-center">
+                    @elseif ($annonce->image && !$annonce->content)
+                        <div class="object-cover rounded-xl flex items-center justify-center">
                             <img src="{{ asset('storage/annoncesImages/' . $annonce->image) }}" alt="Annonce Image" class="w-full">
                         </div>
+                    @elseif ($annonce->image && $annonce->content)
+                        <div class="flex p-2">
+                            <div class="w-1/3">
+                                <h1 class="text-center font-bold text-3xl mt-1 py-2 border-b border-gray-500">{{ $annonce->title }}</h1>
+                                <div class="rounded-xl flex items-center justify-center">
+                                    <p class="font-bold text-lg p-3 shadow-g">{!! $annonce->content !!}</p>
+                                </div>
+                            </div>
+                            <div class="w-2/3">
+                                <div class="max-h-screen rounded-xl flex items-center justify-center">
+                                    <img src="{{ asset('storage/annoncesImages/' . $annonce->image) }}" alt="Annonce Image" class="w-full">
+                                </div>
+                            </div>
+                        </div>
                     @endif
-                    
                 </div>
             @endforeach
-        </div>        
+        </div>
+          
     </div>
 
     <footer class="flex flex-row fixed left-0 bottom-0 w-full">
         <div class="sm:w-1/4 lg:w-1/6 bg-white">
             <img src="{{asset('/images/logo.png')}}" alt="FSM-UMI" class="h-16 w-full">
         </div>
-        <div class="sm:w-3/4 lg:w-5/6 bg-white flex justify-center items-center">
+        <div class="sm:w-3/4 lg:w-5/6 bg-white flex justify-center items-center" id="informations-container">
             @forelse ($information as $key => $info)
                 <p class="text-black my-2 info text-base font-bold" style="display: none;">{{ $info->content }}</p>
             @empty
@@ -69,33 +79,28 @@
             @endforelse
         </div>
     </footer>
-
-
 </div>
 
+<script>
+    async function getWeather() {
+        try {
+            const response = await fetch('http://api.weatherapi.com/v1/current.json?key=cdf1481400db4a12905153211230306&q=Meknes');
+            const data = await response.json();
 
+            const temperatureElement = document.getElementById('temperature');
+            temperatureElement.textContent = data.current.temp_c + ' °C';
 
-    <!-- JavaScript code -->
-
-    <script>
-        function setDateAndTime() {
-            const date = new Date();
-            const daysOfWeek = ['Dimanche', 'Lundi', 'Mardi', 'Mercredi', 'Jeudi', 'Vendredi', 'Samedi'];
-            const dayOfWeek = daysOfWeek[date.getDay()];
-            const months = ['Janvier', 'Février', 'Mars', 'Avril', 'Mai', 'Juin', 'Juillet', 'Août', 'Septembre', 'Octobre', 'Novembre', 'Décembre'];
-            const month = months[date.getMonth()];
-            const dayOfMonth = date.getDate();
-            const year = date.getFullYear();
-            const formattedDate = `${dayOfWeek}, ${dayOfMonth} ${month} ${year}`;
-            const hours = date.getHours();
-            const minutes = date.getMinutes();
-            const seconds = date.getSeconds();
-            const formattedTime = `${hours.toString().padStart(2, '0')}:${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
-            document.getElementById('date').innerHTML = formattedDate;
-            document.getElementById('time').innerHTML = formattedTime;
+            const locationElement = document.getElementById('location');
+            locationElement.textContent = data.location.name + ', ' + data.location.country;
+        } catch (error) {
+            console.log(error);
         }
-        setInterval(setDateAndTime, 1000);
-    </script>
+    }
+
+    getWeather();
+</script>
+
+<script src="{{asset('/js/dateTime.js')}}"></script>
 
     <script>
         const annonces = document.querySelectorAll('.annonce');
@@ -125,5 +130,14 @@
             padding: 0;
         }
     </style>
+
+    {{-- reload page --}}
+    <script>
+        setTimeout(function() {
+            location.reload();
+        }, 120000); 
+    </script>
+    
+    
 </body>
 </html>

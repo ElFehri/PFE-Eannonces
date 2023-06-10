@@ -22,7 +22,7 @@
                 
                         <div class="mb-3">
                             <label for="email" class="block font-bold mb-2 text-lg">{{ __('Addresse email') }}</label>
-                            <input id="email" type="email" class="form-control @error('email') border-red-500 @enderror" name="email" value="{{ old('email') }}" required autofocus>
+                            <input id="email" type="email" placeholder="email" class="form-control @error('email') border-red-500 @enderror" name="email" value="{{ old('email') }}" required autofocus>
                 
                             @error('email')
                                 @if ($errors->has('email'))
@@ -33,7 +33,7 @@
                 
                         <div class="pt-6">
                             <label for="password" class="block font-bold mb-2 text-lg">{{ __('Mot de passe') }}</label>
-                            <input id="password" type="password" class="form-control @error('password') border-red-500 @enderror" name="password" required autocomplete="current-password">
+                            <input id="password" type="password" placeholder="password" class="form-control @error('password') border-red-500 @enderror" name="password" required autocomplete="current-password">
                 
                             @error('password')
                                 @if ($errors->has('password'))

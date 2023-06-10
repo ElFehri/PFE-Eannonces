@@ -4,22 +4,18 @@ namespace App\Http\Controllers;
 
 use App\Models\Annonce;
 use App\Models\Information;
-
+use App\Models\Publication;
 use Illuminate\Support\Facades\Auth;
-
 
 class HomeController extends Controller
 {
-    
-    
-    
     public function index()
     {
         $user = Auth::user();
-        $publications = $user->publications()
-            ->whereDate('created_at', now()->toDateString())
-            ->with('annonce', 'information')
-            ->get();
+        $publications = Publication::where('user_id', $user->id)
+                        ->whereDate('created_at', now()->toDateString())
+                        ->with('annonce', 'information')
+                        ->get();
 
         $annonces = [];
         $informations = [];
@@ -39,14 +35,18 @@ class HomeController extends Controller
 
     public function allAnnonces()
     {
-        $annonces = Annonce::with('publication.user')->get();
+        $annonces = Annonce::with('publication.user')
+                    ->orderBy('created_at', 'desc')
+                    ->paginate(10);
 
         return view('allAnnonces', compact('annonces'));
     }
 
     public function allInformations()
     {
-        $informations = Information::with('publication.user')->get();
+        $informations = Information::with('publication.user')
+                        ->orderBy('created_at', 'desc')
+                        ->paginate(10);
 
         return view('allInformations', compact('informations'));
     }

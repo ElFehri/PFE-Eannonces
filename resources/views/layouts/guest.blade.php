@@ -68,7 +68,7 @@
             </div>
         </div>
 
-        <main >
+        <main class="">
             @yield('welcome')              
         </main>
     </div>

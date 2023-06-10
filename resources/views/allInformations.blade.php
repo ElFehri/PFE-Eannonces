@@ -1,13 +1,12 @@
 @extends('layouts.app')
 @section('title', "Toutes informations")
 @section('content')
-    <div class="container">
-        <h1 class="text-3xl font-bold mb-4">All Informations</h1>
-        <hr>
+<div class="mt-4  bg-white w-4/5 mx-auto rounded-lg shadow-md">
+    <h1 class="text-3xl font-bold bg-green-900 rounded-t-lg text-white text-center">Toutes informations</h1>
 
-        <div class="grid lg:grid-cols-2 gap-4 sm:grid-cols-1">
+        <div class="grid lg:grid-cols-2 gap-2 sm:grid-cols-1 p-4">
             @foreach ($informations as $information)
-                <div class="bg-white px-4 py-2 shadow-lg rounded-lg">
+                <div class="bg-white px-4 py-2 shadow-md rounded-lg border border-solid flex flex-col justify-between">
                     <p class="text-xl bg-gray-100 rounded-md py-2 px-6">{{ $information->content }}</p>
                     <div class="mt-4 px-8 flex justify-between items-center">
                         <div>
@@ -25,6 +24,10 @@
             <div class="mt-4 bg-blue-100 border border-blue-400 text-center text-blue-900 px-4 py-2 rounded relative" role="alert">
                 <span class="block sm:inline">No informations available.</span>
             </div>
+        @else
+            <div class="my-2 mx-auto px-4 pb-4">
+                {{ $informations->links() }}
+            </div> 
         @endif
     </div>
 @endsection

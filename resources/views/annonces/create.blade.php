@@ -1,25 +1,25 @@
 @extends('layouts.app')
 @section('title', "Nouveau annonce")
 @section('content')
-    <div class="flex flex-col items-center justify-center mt-8">
-        <div class="w-3/4">
-            <form method="POST" action="{{ route('annonces.store') }}" enctype="multipart/form-data" class="bg-white shadow-lg rounded px-16 pt-6 pb-8 mb-4">
-                @csrf
-                <h2 class="text-center font-bold text-3xl mb-4">Nouveau Annonce</h2><hr>
 
-                {{-- affichage des messages --}}
-                <div class="text-center">
-                    @if (session('message'))
-                        <div class="mt-4 bg-green-100 border border-green-400 text-green-700 px-4 py-2 rounded relative session-alert" role="alert">
-                            <span class="block sm:inline">{{ session('message') }}</span>
-                        </div>
-                    @endif
-                    @if (session('error'))
-                        <div class="mt-4 bg-red-100 border border-red-400 text-red-700 px-4 py-2 rounded relative session-alert" role="alert">
-                            <span class="block sm:inline">{{ session('error') }}</span>
-                        </div>
-                    @endif
+    <div class="bg-white mt-2 rounded-lg w-3/4 mx-auto">
+        <h2 class="text-2xl text-center text-white bg-green-900 rounded-t-lg font-bold my-2 p-2">Nouveau Annonce</h2>
+        {{-- affichage des messages --}}
+        <div class="text-center mx-4">
+            @if (session('message'))
+                <div class="mt-4 bg-green-100 border border-green-400 text-green-700 px-4 py-2 rounded relative session-alert" role="alert">
+                    <span class="block sm:inline">{{ session('message') }}</span>
                 </div>
+            @endif
+            @if (session('error'))
+                <div class="mt-4 bg-red-100 border border-red-400 text-red-700 px-4 py-2 rounded relative session-alert" role="alert">
+                    <span class="block sm:inline">{{ session('error') }}</span>
+                </div>
+            @endif
+        </div>
+        <div class="px-16 py-2">
+            <form method="POST" action="{{ route('annonces.store') }}" enctype="multipart/form-data" class="">
+                @csrf
 
                 <div class="mb-4">
                     <label class="block text-gray-700 text-xl font-bold mb-2" for="title">
@@ -32,9 +32,9 @@
                     <label class="block text-gray-700 text-xl font-bold mb-2" for="content">
                         Contenu
                     </label>
-                    <textarea id="content" name="content" rows="5" class="form-input rounded-md shadow-sm mt-1 block w-full pl-4 border-2" placeholder="Description">{{ old('content') }}</textarea>
-                </div>
-
+                    <textarea id="editor" name="content">{!! old('content') !!}</textarea>
+                </div>                
+                
                 <div class="mb-4">
                     <label class="block text-gray-700 text-xl font-bold mb-2" for="image">
                         Image
@@ -53,14 +53,31 @@
                 </div>
 
                 <div class="flex items-center justify-between mt-4">
-                    <a href="{{ route("home") }}" class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline no-underline">Retourne</a>
+                    <a href="{{ route("home") }}" class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline no-underline">Annuler</a>
                     <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline" type="submit">
                         Creer
                     </button>
                 </div>
             </form>
-        </div>
+        </div> 
     </div>
-
     <script src="{{asset('/js/messageTimeSet.js')}}"></script>
 @endsection
+@section('scripts')
+    <script>
+        ClassicEditor.create(document.querySelector('#editor'), {
+            // Disable image downloading
+            image: {
+                toolbar: ['imageTextAlternative']
+            },
+            // Disable video downloading
+            mediaEmbed: {
+                previewsInData: true
+            }
+        }).catch(error => {
+            console.error(error);
+        });
+    </script>
+@endsection
+
+

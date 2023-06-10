@@ -20,16 +20,17 @@
       
         <!-- Partie des annonces -->
         <div class="mt-8 bg-white pb-4 rounded-lg">
-            <h3 class="font-semibold py-2 mb-8 text-center bg-red-900 text-white rounded-t-lg">Toutes les annonces que vous avez créées aujourd'hui.</h3>        <div class="grid grid-cols-1 gap-4">
+            <h3 class="font-semibold mb-8 text-center bg-red-900 text-white rounded-t-lg">Toutes les annonces que vous avez créées aujourd'hui.</h3>        <div class="grid grid-cols-1 gap-4">
             <div class="grid grid-cols-2 gap-3">
             @foreach ($annonces as $annonce)
             <div class="bg-white p-4 shadow-md border border-gray-300 m-2 rounded-lg flex flex-col justify-between">
                 <div>
                     <h3 class="text-lg text-center font-semibold">{{ $annonce->title }}</h3>
                     @if ($annonce->content)
-                        <p class="px-4 py-2 bg-gray-100 rounded-md">{{ $annonce->content }}</p>
+                        <div class="px-4 py-2 bg-gray-100 rounded-md">
+                            {!! $annonce->content !!}
+                        </div>
                     @endif
-                    
                     @if ($annonce->image)
                         <div class="mt-4">
                             <img src="{{ asset('storage/annoncesImages/' . $annonce->image) }}" alt="Annonce Image" class="w-48 h-48 object-cover mx-auto border border-solid">
@@ -62,7 +63,7 @@
 
     <div class="mt-8 bg-white pb-4 rounded-lg">
         <!-- Partie des informations -->
-        <h3 class="font-semibold py-2 mb-8 text-center bg-green-900 text-white rounded-t-lg">Toutes les informations que vous avez créées aujourd'hui.</h3>
+        <h3 class="font-semibold mb-8 text-center bg-green-900 text-white rounded-t-lg">Toutes les informations que vous avez créées aujourd'hui.</h3>
         <div class="grid grid-cols-2 gap-4">
             @foreach($informations as $information)
                 <div class="bg-white p-4 shadow-md border border-gray-300 m-2 rounded-lg flex flex-col justify-between">

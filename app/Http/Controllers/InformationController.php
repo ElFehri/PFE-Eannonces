@@ -5,9 +5,9 @@ namespace App\Http\Controllers;
 
 use App\Models\Information;
 use App\Models\Publication;
+use Error;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use Exception;
 
 class InformationController extends Controller
 {
@@ -44,7 +44,7 @@ class InformationController extends Controller
             $information->save();
 
             return redirect()->back()->with(['message' => 'Information créée avec succès.']);
-        } catch (Exception $e) {
+        } catch (Error $e) {
             return redirect()->back()->with(['error' => $e->getMessage()]);
         }
     }
@@ -88,7 +88,7 @@ class InformationController extends Controller
 
             
             return redirect()->route('home')->with(['message' => 'Information modifiée avec succès.']);
-        } catch (\Exception $e) {
+        } catch (Error $e) {
             return redirect()->back()->with(['error' => $e->getMessage()]);
         }
     }
@@ -98,7 +98,7 @@ class InformationController extends Controller
         try {
             $information = Information::with('publication')->findOrFail($id)->deleteOrFail();        
             return redirect()->route('home')->with(['message'=>"L'information a été supprimée avec succès."]);
-        } catch (Exception $e) {
+        } catch (Error $e) {
             return redirect()->route('home')->with(['error'=>$e->getMessage()]);
         } 
     }

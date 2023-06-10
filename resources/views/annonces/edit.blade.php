@@ -16,13 +16,13 @@
                 </label>
                 <input class="appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="title" name="title" type="text" placeholder="Titre d'annonce" value="{{ $annonce->title }}" required>
             </div>
-            
+
             <div class="mb-4">
                 <label class="block text-gray-700 text-xl font-bold mb-2" for="content">
                     Contenu
                 </label>
-                <textarea class="form-input rounded-md shadow-sm mt-1 block w-full pl-4 border-2" id="content" name="content" rows="5" placeholder="Description">{{ $annonce->content }}</textarea>
-            </div>
+                <textarea id="editor" name="content">{!! $annonce->content !!}</textarea>
+            </div> 
 
             <div class="mb-4">
                 <label class="block text-gray-700 text-xl font-bold mb-2" for="image">
@@ -51,7 +51,7 @@
             </div>
             
             <div class="flex items-center justify-between mt-4">
-                <a href="{{ route('home') }}" class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline no-underline">Retourne</a>
+                <a href="{{ route('home') }}" class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline no-underline">Annuler</a>
                 <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline" type="submit">
                     Editer
                 </button>
@@ -59,4 +59,20 @@
         </form>
     </div>
 </div>
+@endsection
+@section('scripts')
+    <script>
+        ClassicEditor.create(document.querySelector('#editor'), {
+            // Disable image downloading
+            image: {
+                toolbar: ['imageTextAlternative']
+            },
+            // Disable video downloading
+            mediaEmbed: {
+                previewsInData: true
+            }
+        }).catch(error => {
+            console.error(error);
+        });
+    </script>
 @endsection

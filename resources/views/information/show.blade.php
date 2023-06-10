@@ -5,7 +5,7 @@
 
 
 <div class="flex justify-center">
-    <div class="w-3/4 bg-white shadow-md rounded-lg overflow-hidden">
+    <div class="w-10/12 bg-white shadow-md rounded-lg overflow-hidden">
         <div class="p-4">
             <p class="mt-2 text-lg p-4">{{ $information->content }}</p>
         </div>
@@ -36,10 +36,23 @@
         </div>        
         <div class="bg-gray-200 p-4 flex justify-between items-center">
             <a href="{{ route('information.edit', $information->id) }}" class="bg-blue-500 no-underline hover:bg-blue-600 text-white font-bold py-2 px-4 rounded">Modifier</a>
-            @if ($information->publication->Masked)
-                <a href="{{route('publication.unmask', ['id'=>$information->pub_id])}}" class="no-underline  font-sans bg-gray-500 hover:bg-gray-600 text-white rounded-md px-3 py-2">Démasquer</a>
+            @if (Auth::user()->role === "Responsable")
+                @if ($information->publication->Masked)
+                    <a href="{{route('publication.unmask', ['id'=>$information->pub_id])}}" class="no-underline  font-sans bg-gray-500 hover:bg-gray-600 text-white rounded-md px-3 py-2">Démasquer</a>
+                @else
+                    <a href="{{route('publication.mask', ['id'=>$information->pub_id])}}" class="no-underline  font-sans bg-gray-500 hover:bg-gray-600 text-white rounded-md px-3 py-2">Masquer</a>
+                @endif
+            <form action="{{ route('information.destroy', $information->id) }}" method="POST" onsubmit="return confirm('Êtes-vous sûr de vouloir supprimer cette information ?')">
+                @csrf
+                @method('DELETE')
+                <button type="submit" class="bg-red-500 hover:bg-red-600 text-white font-bold py-2 px-4 rounded">Supprimer</button>
+            </form>
             @else
-                <a href="{{route('publication.mask', ['id'=>$information->pub_id])}}" class="no-underline  font-sans bg-red-500 hover:bg-red-600 text-white rounded-md px-3 py-2">Masquer</a>
+                @if ($information->publication->Masked)
+                    <a href="{{route('publication.unmask', ['id'=>$information->pub_id])}}" class="no-underline  font-sans bg-gray-500 hover:bg-gray-600 text-white rounded-md px-3 py-2">Démasquer</a>
+                @else
+                    <a href="{{route('publication.mask', ['id'=>$information->pub_id])}}" class="no-underline  font-sans bg-red-500 hover:bg-red-600 text-white rounded-md px-3 py-2">Masquer</a>
+                @endif
             @endif
         </div>
     </div>

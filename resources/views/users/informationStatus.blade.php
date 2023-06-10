@@ -3,7 +3,7 @@
 @section('information')
 
     <div class="mt-8 bg-white pb-4 rounded-lg">
-        <h3 class="text-lg font-bold mb-4 bg-green-900 text-white rounded-t-lg px-4 py-2">Informations validées</h3>
+        <h3 class="text-2xl text-center font-semibold mb-4 bg-green-900 text-white rounded-t-lg px-4 ">Informations validées</h3>
         <div class="m-2 grid grid-cols-2 gap-3">
             @foreach ($validated as $info)
                 <div class="bg-white px-4 py-2 mb-3 border border-gray-300 shadow-md rounded-lg flex flex-col justify-between">
@@ -20,14 +20,14 @@
             @endforeach
         </div>
         @empty($validated)
-        <div class="mt-4 mx-4 bg-blue-100 border border-blue-400 text-center text-blue-900 px-4 py-2 rounded relative" role="alert">
+        <div class="m-4 mx-4 bg-blue-100 border border-blue-400 text-center text-blue-900 px-4 py-2 rounded relative" role="alert">
             <span class="block sm:inline">Vous n'avaiz aucun d'informations validées.
         </div>
         @endempty
     </div><hr>
 
     <div class="mt-8 bg-white pb-4 rounded-lg">
-        <h3 class="text-lg font-bold mb-4 bg-blue-900 text-white rounded-t-lg px-4 py-2">Informations en révision</h3>
+        <h3 class="text-2xl text-center font-semibold mb-4 bg-blue-900 text-white rounded-t-lg px-4 ">Informations en révision</h3>
         <div class="m-2 grid grid-cols-2 gap-3">
             @foreach ($inReview as $info)
                 <div class="bg-white px-4 py-2 mb-3 border border-gray-300 shadow-md rounded-lg flex flex-col justify-between">
@@ -41,14 +41,14 @@
             @endforeach
         </div>
         @empty($inReview)
-            <div class="mt-4 mx-4 bg-blue-100 border border-blue-400 text-center text-blue-900 px-4 py-2 rounded relative" role="alert">
+            <div class="m-4 mx-4 bg-blue-100 border border-blue-400 text-center text-blue-900 px-4 py-2 rounded relative" role="alert">
                 <span class="block sm:inline">Vous n'avaiz aucun d'informations en révision.
             </div>
         @endempty
     </div><hr>
 
     <div class="mt-8 bg-white pb-4 rounded-lg">
-        <h3 class="text-lg font-bold mb-4 bg-red-900 text-white rounded-t-lg px-4 py-2">Informations rejetées</h3>
+        <h3 class="text-2xl text-center font-semibold mb-4 bg-red-900 text-white rounded-t-lg px-4 ">Informations rejetées</h3>
         <div class="m-2 grid grid-cols-2 gap-3">
             @foreach ($rejected as $info)
                 <div class="bg-white px-4 py-2 mb-3 border border-gray-300 shadow-md rounded-lg flex flex-col justify-between">
@@ -61,7 +61,7 @@
             @endforeach
         </div>
         @empty($rejected)
-            <div class="mt-4 mx-4 bg-blue-100 border border-blue-400 text-center text-blue-900 px-4 py-2 rounded relative" role="alert">
+            <div class="m-4 mx-4 bg-blue-100 border border-blue-400 text-center text-blue-900 px-4 py-2 rounded relative" role="alert">
                 <span class="block sm:inline">Vous n'avaiz aucun d'informations rejetées.
             </div>
         @endempty

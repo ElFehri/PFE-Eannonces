@@ -47,7 +47,7 @@ Route::group(['prefix'=> 'home', 'middleware'=>'auth'], function(){
     Route::get('/new/users', [ResponsableController::class,'newUsers'])->name('newUsers');
     Route::get('/responsable/validate/{user}', [ResponsableController::class, 'validateUser'])->name('responsable.validate');
     Route::delete('/responsable/reject/{user}', [ResponsableController::class, 'rejectUser'])->name('responsable.reject');
-
+    Route::post('/change/user/role/{id}', [ResponsableController::class, 'changeUserRole'])->name('changeUserRole');
 
     
 
@@ -61,7 +61,7 @@ Route::group(['prefix'=> 'home', 'middleware'=>'auth'], function(){
 
     Route::post('/my/profile', [UsersController::class, 'editProfile'])->name('editProfile');
 
-    Route::delete('/user/delete/{id}', [UsersController::class, 'deleteUser'])->name('deleteUser');
+    Route::get('/user/authorization/{id}', [UsersController::class, 'userAuthorization'])->name('userAuthorization');
 
 
     //gestion des utilisateurs

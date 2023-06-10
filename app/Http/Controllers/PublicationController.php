@@ -6,6 +6,7 @@ use App\Events\MaskPublication;
 use App\Models\Publication;
 use Error;
 use Exception;
+use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\DB;
 
 class PublicationController extends Controller
@@ -47,7 +48,7 @@ class PublicationController extends Controller
             $publication->Masked = false;
             $publication->save();
 
-            
+            Cache::forget('screen.blade.php');
             
             return redirect()->back()->with('message', 'La publication a été validée avec succès.');
         } catch (Exception $e) {

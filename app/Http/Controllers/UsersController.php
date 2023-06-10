@@ -11,7 +11,7 @@ use Illuminate\Support\Facades\Hash;
 
 class UsersController extends Controller
 {
-    
+    //la liste des utilisateurs
     public function usersList()
     {
         $users = User::orderBy('name', 'asc')
@@ -36,22 +36,68 @@ class UsersController extends Controller
 
     
     
+    //profil d'un utilisateur
         public function userProfile($id){
             $user = User::findOrFail($id);
-            return view('users.userProfile', compact('user'));
+            $publications = Publication::with(['annonce', 'information'])
+                            ->where('user_id', $user->id)
+                            ->orderBy('created_at','desc')
+                            ->get();
+
+            $informations = [];
+            $annonces = [];
+            foreach ($publications as $publication) {
+                if ($publication->annonce) {
+                    $annonces[] = $publication->annonce;
+                }
+                if ($publication->information) {
+                    $informations[] = $publication->information;
+                }
+            }
+            return view('users.userProfile', compact('user','annonces', 'informations'));
         }
-    
-        public function deleteUser($id){
+
+        //gestion d'authorization
+        public function userAuthorization($id){
             $user = User::findOrFail($id);
-            $user->delete();
-            return redirect()->route('usersList')->with('success', 'User deleted successfully');
+            if ($user->authorized) {
+                $user->authorized = false;
+                $user->save();
+                return redirect()->back()->with('error', 'Permissions bien supprimee');
+            } else {
+                $user->authorized = true;
+                $user->save();
+                return redirect()->back()->with('message', 'Permissions bien reinitialiser');
+            }
         }
     
-        public function profile(){
+        //Mon profil
+        public function profile()
+        {
             $user = Auth::user();
-            return view('users.profile', compact('user'));
+            $publications = Publication::with(['annonce', 'information'])
+                ->where('user_id', $user->id)
+                ->get();
+        
+            $annonces = [];
+            $Informations = [];
+        
+            foreach ($publications as $publication) {
+                if ($publication->annonce) {
+                    $annonces[] = $publication->annonce;
+                }
+                if ($publication->information) {
+                    $Informations[] = $publication->information;
+                }
+            }
+        
+            $tA = count($annonces);
+            $tI = count($Informations);
+        
+            return view('users.profile', compact('user', 'tA', 'tI'));
         }
-    
+        
+    //editer mon profil
     public function editProfile(Request $request){
        
         $user = Auth::user();
@@ -69,12 +115,12 @@ class UsersController extends Controller
         return redirect()->route('profile')->with('message', 'Profile updated successfully');
     }
     
+    //ajouter nouveau utilisateur
     public function addUser(){
         return view('users.addUser');
     }
     public function storeUser(Request $request)
     {
-        // Validate the form data
         $validatedData = $request->validate([
             'name' => 'required|string',
             'email' => 'required|email|unique:users,email',
@@ -85,7 +131,6 @@ class UsersController extends Controller
             'CIN.unique' => 'The CIN is already registered.',
         ]);
     
-        // Create a new user instance
         $user = new User;
         $user->name = $validatedData['name'];
         $user->email = $validatedData['email'];
@@ -94,16 +139,18 @@ class UsersController extends Controller
         $user->password = Hash::make($validatedData['CIN']);
         $user->authorized = true;
     
-        // Save the user to the database
         $user->save();
         return redirect()->route('addUser')->with(['message' => 'User created successfully']);
     }
     
+    //les annonces de l'utilisateur qui connecter
     public function mesAnnonces()
     {
         $user = Auth::user();
-
-        $publications = $user->publications()->with('annonce')->get();
+        $publications = Publication::with('annonce')
+                        ->where('user_id', $user->id)
+                        ->orderBy('created_at','desc')
+                        ->get();
 
         $annonces = [];
         foreach ($publications as $publication) {
@@ -112,23 +159,24 @@ class UsersController extends Controller
                 $annonces[] = $publication->annonce;
             }
         }
-
         return view('users.mesAnnonces', compact('annonces'));
     }
 
+    //les infos de l'utilisateur qui connecter
     public function mesInformations(){
         $user = Auth::user();
 
-        $publications = $user->publications()->with('information')->get();
+        $publications = Publication::with('information')
+                        ->where('user_id', $user->id)
+                        ->orderBy('created_at','desc')
+                        ->get();
         $informations = [];
         foreach ($publications as $publication) {
             if ($publication->information) {
-                $informations[] = $publication->information;    
-            }
-            
+                $publication->information->Masked = $publication->Masked;
+                $informations[] = $publication->information;
+            }    
         }
-
-        // Passer les tableaux d'annonces et d'informations à la vue
         return view('users.mesInformations', compact('informations'));
     }
 
@@ -142,9 +190,7 @@ class UsersController extends Controller
                 ->where('publications.user_id', '=', $user->id)
                 ->get(['annonces.id','pub_id', 'title', 'content', 'Validated', 'Masked', 'image']);
             
-
         $validated = []; $rejected = []; $inReview = [];
-
         foreach ($announcements as $announce) {
             if ($announce->Validated === 1) {
                 $validated[] = $announce;

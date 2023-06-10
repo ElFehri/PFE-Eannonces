@@ -2,16 +2,15 @@
 @section('title', 'Mes Annonces')
 @section('content')
 
-<div class="">
-    <!-- Les annonces d'utilisateur-->
-    <h1 class="text-4xl text-center font-bold my-4">Toutes mes annonces</h1>
-    <div class="grid grid-cols-2 gap-4">
+<div class="bg-white w-4/5 mx-auto rounded-lg shadow-md">
+    <h1 class="text-2xl font-bold bg-blue-500 rounded-t-lg text-white text-center">Mes annonces</h1>
+        <div class="grid grid-cols-2 gap-4">
         @forelse ($annonces as $annonce)
         <div class="bg-white p-4 shadow-md border border-gray-300 m-2 rounded-lg flex flex-col justify-between">
             <div>
                 <h3 class="text-lg text-center font-semibold">{{ $annonce->title }}</h3>
                 @if ($annonce->content)
-                    <p class="px-4 py-2 bg-gray-100 rounded-md">{{ $annonce->content }}</p>
+                    <p class="px-4 py-2 bg-gray-100 rounded-md">{!! $annonce->content !!}</p>
                 @endif
                 
                 @if ($annonce->image)

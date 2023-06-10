@@ -7,12 +7,12 @@ use App\Models\Publication;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Exception;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Validator;
 
 class AnnonceController extends Controller
 {
-   
     public function create(){
         return view('annonces.create');
     }
@@ -25,7 +25,7 @@ class AnnonceController extends Controller
             $end_date = $request->input('end_date');
 
             if ($start_date >= $end_date) {
-                return redirect()->back()->with(['Exception' => 'La date de début doit être inférieure à la date de fin!']);
+                return redirect()->back()->with(['error' => 'La date de début doit être inférieure à la date de fin!']);
             }
 
             $publication = new Publication;
@@ -44,7 +44,7 @@ class AnnonceController extends Controller
 
             $data = $request->validate([
                 'title' => 'required',
-                'content' => 'nullable',
+                'content' => 'nullable|string',
                 'image' => 'nullable|image', // Validate image file (optional)
             ]);
 
@@ -63,7 +63,7 @@ class AnnonceController extends Controller
 
             return redirect()->back()->with(['message' => 'Annonce créée avec succès.']);
         } catch (Exception $e) {
-            return redirect()->back()->with(['Exception' => $e->getMessage()]);
+            return redirect()->back()->with(['error' => $e->getMessage()]);
         }
     }
 
@@ -128,7 +128,7 @@ class AnnonceController extends Controller
 
             return redirect()->route('home')->with('message', 'Annonce modifiée avec succès.');
         } catch (Exception $e) {
-            return redirect()->back()->with('exception', $e->getMessage());
+            return redirect()->back()->with('error', $e->getMessage());
         }
     }
 
@@ -141,7 +141,7 @@ class AnnonceController extends Controller
             return redirect()->route('home')->with(['message'=>"L'annonce a été supprimée avec succès."]); 
     
         } catch (Exception $e) {
-            return redirect()->route('home')->with(['Exception'=>$e->getMessage()]);
+            return redirect()->route('home')->with(['error'=>$e->getMessage()]);
         }
     }
 }
