@@ -15,7 +15,7 @@
 
                         <div class="mb-3">
                             <label for="name" class="block font-bold mb-1 text-lg">{{ __('Nom & Prenom') }}</label>
-                            <input id="name" type="text" class="form-control @error('name') border-red-500 @enderror" name="name" value="{{ old('name') }}"  autofocus>
+                            <input id="name" type="text" placeholder="Nom & Prenom" class="form-control @error('name') border-red-500 @enderror" name="name" value="{{ old('name') }}"  autofocus>
 
                             @error('name')
                             <span class="text-red-500 text-sm mt-2">{{ $message }}</span>
@@ -24,7 +24,7 @@
 
                         <div class="mb-3">
                             <label for="email" class="block font-bold mb-1 text-lg">{{ __('Addresse Email') }}</label>
-                            <input id="email" type="email" class="form-control @error('email') border-red-500 @enderror" name="email" value="{{ old('email') }}" >
+                            <input id="email" type="email" placeholder="Addresse Email" class="form-control @error('email') border-red-500 @enderror" name="email" value="{{ old('email') }}" >
 
                             @error('email')
                             <span class="text-red-500 text-sm mt-2">{{ $message }}</span>
@@ -33,7 +33,7 @@
 
                         <div class="mb-3">
                             <label for="CIN" class="block font-bold mb-1 text-lg">{{ __('CIN') }}</label>
-                            <input id="CIN" type="text" class="form-control @error('CIN') border-red-500 @enderror" name="CIN" value="{{ old('CIN') }}" >
+                            <input id="CIN" type="text" placeholder="CIN" class="form-control @error('CIN') border-red-500 @enderror" name="CIN" value="{{ old('CIN') }}" >
 
                             @error('CIN')
                             <span class="text-red-500 text-sm mt-2">{{ $message }}</span>
@@ -45,7 +45,8 @@
                                 {{ __('Role') }}
                             </label>
                             <div class="">
-                                <select id="role" name="role"  class="form-control">
+                                <select id="role" name="role"  class="form-control" required>
+                                    <option value="">--role--</option>
                                     <option value="Member">Membre</option>
                                     <option value="Admin">Admin</option>
                                     <option value="Responsable">Responsable</option>
@@ -56,7 +57,7 @@
 
                         <div class="mb-3">
                             <label for="password" class="block font-bold mb-1 text-lg">{{ __('Mot de passe') }}</label>
-                            <input id="password" type="password" class="form-control @error('password') border-red-500 @enderror" name="password" >
+                            <input id="password" type="password" placeholder="Mot de passe" class="form-control @error('password') border-red-500 @enderror" name="password" >
 
                             @error('password')
                             <span class="text-red-500 text-sm mt-2">{{ $message }}</span>
@@ -65,7 +66,7 @@
 
                         <div class="mb-3">
                             <label for="password-confirm" class="block font-bold mb-1 text-lg">{{ __('Confirmation') }}</label>
-                            <input id="password-confirm" type="password" class="form-control" name="password_confirmation" >
+                            <input id="password-confirm" placeholder="Confirmation" type="password" class="form-control" name="password_confirmation" >
                         </div>
 
                         <div class="flex items-center justify-between">

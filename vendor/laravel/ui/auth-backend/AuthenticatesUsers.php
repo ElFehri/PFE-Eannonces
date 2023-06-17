@@ -33,17 +33,15 @@ trait AuthenticatesUsers
     {
         $this->validateLogin($request);
 
-        // If the class is using the ThrottlesLogins trait, we can automatically throttle
-        // the login attempts for this application. We'll key this by the username and
-        // the IP address of the client making these requests into this application.
-        if (method_exists($this, 'hasTooManyLoginAttempts') &&
-            $this->hasTooManyLoginAttempts($request)) {
-            $this->fireLockoutEvent($request);
-
-            return $this->sendLockoutResponse($request);
-        }
-
         if ($this->attemptLogin($request)) {
+            $user = Auth::user();
+
+            // Check if the user is authorized
+            if (!$user->authorized) {
+                Auth::logout(); // Log out the user
+                return redirect()->route('login')->with('message', 'You do not have permissions yet or are not authorized.');
+            }
+
             if ($request->hasSession()) {
                 $request->session()->put('auth.password_confirmed_at', time());
             }
@@ -58,7 +56,6 @@ trait AuthenticatesUsers
 
         return $this->sendFailedLoginResponse($request);
     }
-
     /**
      * Validate the user login request.
      *

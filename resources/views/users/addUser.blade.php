@@ -21,25 +21,26 @@
                 @csrf
                 <div class="my-4">
                     <label for="name" class="block font-bold mb-2 text-lg">Nom & prenom</label>
-                    <input type="text" name="name" placeholder="Nom & Prenom" value="{{old('name')}}" required class="w-full form-control px-4 py-2 border border-gray-300 rounded-md">
+                    <input type="text" name="name" placeholder="Nom & Prenom" value="{{old('name')}}" required class="form-control">
                 </div>
                 <div class="mb-4">
                     <label for="email" class="block font-bold mb-2 text-lg">Email</label>
-                    <input type="email" name="email" placeholder="exemple123@gmail.com" value="{{old('email')}}" required class="w-full form-control px-4 py-2 border border-gray-300 rounded-md">
+                    <input type="email" name="email" placeholder="exemple123@gmail.com" value="{{old('email')}}" required class="form-control">
                     @error('email')
                         <p class="text-red-500 mt-1">{{ $message }}</p>
                     @enderror
                 </div>
                 <div class="mb-4">
                     <label for="CIN" class="block font-bold mb-2 text-lg">CIN</label>
-                    <input type="text" name="CIN" placeholder="CIN" value="{{old('CIN')}}" required class="w-full form-control px-4 py-2 border border-gray-300 rounded-md">
+                    <input type="text" name="CIN" placeholder="CIN" value="{{old('CIN')}}" required class="form-control">
                     @error('CIN')
                         <p class="text-red-500 mt-1">{{ $message }}</p>
                     @enderror
                 </div>
                 <div class="mb-10">
                     <label for="role" class="block font-bold mb-2 text-lg">Role</label>
-                    <select name="role" class="w-full form-control px-4 py-2 border border-gray-300 rounded-md">
+                    <select name="role" class="form-control" required>
+                        <option value="">--role--</option>
                         <option value="Member">Membre</option>
                         <option value="Admin">Admin</option>
                         <option value="Responsable">Responsable</option>

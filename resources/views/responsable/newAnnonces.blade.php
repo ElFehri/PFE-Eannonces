@@ -26,8 +26,8 @@
                 </div>
             @endforeach
     @else
-    <div>
-        <p class="text-gray-600 p-4 font-bold text-lg">Aucune nouvelle annonce trouvée.</p>
+    <div class="m-4 bg-blue-100 border border-blue-400 text-center text-blue-900 px-4 py-2 rounded relative">
+        <p class="block sm:inline">Aucune nouvelle annonce trouvée.</p>
     </div>   
     @endif
 </div>

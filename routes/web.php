@@ -16,7 +16,7 @@ Auth::routes();
 
 
 
-Route::group(['prefix'=> 'home', 'middleware'=>'auth'], function(){
+Route::group(['prefix'=> 'home', 'middleware'=>['auth','web']], function(){
    
     //route apres l'auth par default
     Route::get('/dashboard', [HomeController::class, 'index'])->name('home');

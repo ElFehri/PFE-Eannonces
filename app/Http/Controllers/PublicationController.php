@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Events\MaskPublication;
+use App\Models\Annonce;
+use App\Models\Information;
 use App\Models\Publication;
+use Carbon\Carbon;
 use Error;
 use Exception;
 use Illuminate\Support\Facades\Cache;
@@ -70,29 +72,27 @@ class PublicationController extends Controller
         }
     }
 
-
-    //la sortie de a l'ecran
     public function screen()
     {
-        $annonces = DB::table('annonces')
-            ->join('publications', 'annonces.pub_id', '=', 'publications.id')
-            ->where('publications.start_date', '<=', now())
-            ->where('publications.end_date', '>=', now())
-            ->where('Validated', '=', 1)
-            ->where('Masked', '=', false)
-            ->select(['title', 'content','image'])
-            ->get();
+        $currentDateTime = DB::selectOne('SELECT NOW()')->{'NOW()'}; // Retrieve the system date
     
-        $information = DB::table('information')
-            ->join('publications', 'information.pub_id', '=', 'publications.id')
-            ->where('publications.start_date', '<=', now())
-            ->where('publications.end_date', '>=', now())
-            ->where('Validated', '=', 1)
-            ->where('Masked', '=', false)
-            ->get(['content']);
-       
-        return view('screen', compact('annonces','information'));
+        $annonces = Annonce::whereHas('publication', function ($query) use ($currentDateTime) {
+            $query->where('start_date', '<=', $currentDateTime)
+                ->where('end_date', '>=', $currentDateTime)
+                ->where('validated', 1)
+                ->where('masked', 0);
+        })->get(['title', 'content', 'image']);
+    
+        $information = Information::whereHas('publication', function ($query) use ($currentDateTime) {
+            $query->where('start_date', '<=', $currentDateTime)
+                ->where('end_date', '>=', $currentDateTime)
+                ->where('validated', 1)
+                ->where('masked', 0);
+        })->get(['content']);
+    
+        return view('screen', compact('annonces', 'information'));
     }
+    
 
 
 }

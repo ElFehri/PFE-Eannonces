@@ -2,7 +2,7 @@
 @section('title', 'Mes Annonces')
 @section('content')
 
-<div class="bg-white w-4/5 mx-auto rounded-lg shadow-md">
+<div class="bg-white w-4/5 pb-4 mx-auto rounded-lg shadow-md">
     <h1 class="text-2xl font-bold bg-blue-500 rounded-t-lg text-white text-center">Mes annonces</h1>
         <div class="grid grid-cols-2 gap-4">
         @forelse ($annonces as $annonce)
@@ -33,7 +33,7 @@
             </div>
         </div>
         @empty
-        <div class="mt-4 bg-blue-100 border border-blue-400 text-center text-blue-900 px-4 py-2 rounded relative" role="alert">
+        <div class="m-4 bg-blue-100 border border-blue-400 text-center text-blue-900 px-4 py-2 rounded relative" role="alert">
             <span class="block sm:inline">Vous n'avez pas encore d'annonces</span>
         </div>
         @endforelse

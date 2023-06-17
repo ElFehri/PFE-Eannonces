@@ -19,7 +19,7 @@ return new class extends Migration
             $table->string('title');
             $table->longText('content')->nullable();
             $table->string('image')->nullable();
-            $table->foreignId('pub_id')->constrained('publications')->onDelete('cascade');
+            $table->foreignId('pub_id')->constrained('publications')->onDelete('CASCADE');
             $table->timestamps();
 
         });

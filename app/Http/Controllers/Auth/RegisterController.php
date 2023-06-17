@@ -47,5 +47,6 @@ class RegisterController extends Controller
             'role'=> $data['role'],
             'authorized' => false,
         ]);
+        
     }
 }

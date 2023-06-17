@@ -10,9 +10,9 @@
                     <h1 class="font-bold text-3xl">{{ __('Login') }}</h1>
                     
                 </div>
-                @if (session('unauthorized'))
-                    <div class="mt-4 bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative unauthorized-alert" role="alert">
-                        <span class="block sm:inline">{{ session('unauthorized') }}</span>
+                @if (session('message'))
+                    <div class="m-2 bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative unauthorized-alert" role="alert">
+                        <span class="block sm:inline">{{ session('message') }}</span>
                     </div>
                 @endif
 

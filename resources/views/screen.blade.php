@@ -8,10 +8,6 @@
     <link rel="dns-prefetch" href="//fonts.gstatic.com">
     <link href="https://fonts.bunny.net/css?family=Nunito" rel="stylesheet">
 
-    <!-- Scripts -->
-    <script src="https://cdn.jsdelivr.net/npm/laravel-echo@^1.10.0/dist/echo.min.js"></script>
-    <script src="https://js.pusher.com/7.0/pusher.min.js"></script>
-
 
     @vite(['resources/css/app.css', 'resources/sass/app.scss', 'resources/js/app.js'])
 </head>
@@ -34,7 +30,7 @@
             </div>
         </div>
 
-        <div class="sm:w-3/4 lg:w-5/6 bg-gray-100 max-h-screen " id="annonces-container">
+        <div class="sm:w-3/4 lg:w-5/6 bg-gray-100 max-h-screen" id="annonces-container">
             @foreach ($annonces as $key => $annonce)
                 <div class="annonce m-1" style="display: none">
                     @if ($annonce->content && !$annonce->image)
@@ -44,10 +40,10 @@
                         </div>
                     @elseif ($annonce->image && !$annonce->content)
                         <div class="object-cover rounded-xl flex items-center justify-center">
-                            <img src="{{ asset('storage/annoncesImages/' . $annonce->image) }}" alt="Annonce Image" class="w-full">
+                            <img src="{{ asset('storage/annoncesImages/' . $annonce->image) }}" alt="Annonce Image" class="w-full max-h-screen">
                         </div>
                     @elseif ($annonce->image && $annonce->content)
-                        <div class="flex p-2">
+                        <div class="flex flex-row">
                             <div class="w-1/3">
                                 <h1 class="text-center font-bold text-3xl mt-1 py-2 border-b border-gray-500">{{ $annonce->title }}</h1>
                                 <div class="rounded-xl flex items-center justify-center">
@@ -56,14 +52,14 @@
                             </div>
                             <div class="w-2/3">
                                 <div class="max-h-screen rounded-xl flex items-center justify-center">
-                                    <img src="{{ asset('storage/annoncesImages/' . $annonce->image) }}" alt="Annonce Image" class="w-full">
+                                    <img src="{{ asset('storage/annoncesImages/' . $annonce->image) }}" alt="Annonce Image" class="w-full max-h-96">
                                 </div>
                             </div>
                         </div>
                     @endif
                 </div>
             @endforeach
-        </div>
+        </div>        
           
     </div>
 

@@ -25,21 +25,21 @@
                     <label class="block text-gray-700 text-xl font-bold mb-2" for="title">
                         Titre
                     </label>
-                    <input id="title" name="title" type="text" value="{{ old('title') }}" class="appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" placeholder="Titre d'annonce" required>
+                    <input id="title" name="title" type="text" value="{{ old('title') }}" class="form-control" placeholder="Titre d'annonce" required>
                 </div>
 
                 <div class="mb-4">
                     <label class="block text-gray-700 text-xl font-bold mb-2" for="content">
                         Contenu
                     </label>
-                    <textarea id="editor" name="content">{!! old('content') !!}</textarea>
+                    <textarea id="editor" class="form-control" name="content">{!! old('content') !!}</textarea>
                 </div>                
                 
                 <div class="mb-4">
                     <label class="block text-gray-700 text-xl font-bold mb-2" for="image">
                         Image
                     </label>
-                    <input id="image" name="image" type="file" class="appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
+                    <input id="image" name="image" type="file" class="form-control">
                 </div>
 
                 <div class="form-group text-gray-700 font-bold mb-4">

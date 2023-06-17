@@ -32,10 +32,10 @@
                 <div>
                 @guest
                     @if (Route::has('login'))
-                            <a class="font-bold text-white no-underline" href="{{ route('login') }}"><button class="btn btn-primary font-bold">{{ __('Se connecter') }}</button></a>
+                            <a class="font-bold text-white no-underline" href="{{ route('login') }}"><button class="btn btn-primary font-semibold">{{ __('Connecter') }}</button></a>
                     @endif
                     @if (Route::has('register'))
-                        <a class="font-bold text-white no-underline" href="{{ route('register') }}"><button class="btn btn-primary ">{{ __("S'inscrire") }}</button></a>
+                        <a class="font-bold text-white no-underline" href="{{ route('register') }}"><button class="btn btn-primary font-semibold">{{ __("Inscrire") }}</button></a>
                     @endif
                 @else
                     <div class="nav-item dropdown">

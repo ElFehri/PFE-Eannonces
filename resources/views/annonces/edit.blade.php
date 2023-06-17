@@ -14,21 +14,21 @@
                 <label class="block text-gray-700 text-xl font-bold mb-2" for="title">
                     Titre
                 </label>
-                <input class="appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="title" name="title" type="text" placeholder="Titre d'annonce" value="{{ $annonce->title }}" required>
+                <input class="form-control" id="title" name="title" type="text" placeholder="Titre d'annonce" value="{{ $annonce->title }}" required>
             </div>
 
             <div class="mb-4">
                 <label class="block text-gray-700 text-xl font-bold mb-2" for="content">
                     Contenu
                 </label>
-                <textarea id="editor" name="content">{!! $annonce->content !!}</textarea>
+                <textarea id="editor" class="form-control" name="content">{!! $annonce->content !!}</textarea>
             </div> 
 
             <div class="mb-4">
                 <label class="block text-gray-700 text-xl font-bold mb-2" for="image">
                     Nouveau image
                 </label>
-                <input id="image" name="image" type="file" class="appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
+                <input id="image" name="image" type="file" class="form-control">
             </div>
 
             @if ($annonce->image)
